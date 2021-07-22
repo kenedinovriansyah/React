@@ -1,0 +1,117 @@
+@import url("https://use.fontawesome.com/releases/v5.15.3/css/all.css");
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Kanit&family=Lato:wght@900&family=Open+Sans&display=swap");
+
+$font-family-Inter: "Inter", sans-serif;
+$font-family-Kanit: "Kanit", sans-serif;
+$font-family-Lato: "Lato", sans-serif;
+$font-family-Open: "Open Sans", sans-serif;
+
+$white: rgba(255, 255, 255);
+$boxshadow-pedia: rgb(0 0 0 / 7%) 0px 4px 6px -1px;
+$boxshadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75);
+$boxshadow-button: rgb(0 171 85 / 24%) 0px 8px 16px 0px;
+$gray: #c9d1d9;
+$color: rgb(0, 171, 85);
+$text: rgba(49, 53, 59, 0.68);
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
+.drawer,
+.drawer-close {
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 280px;
+  height: 100vh;
+  background-color: $white;
+  box-shadow: $boxshadow-pedia;
+  -webkit-box-shadow: $boxshadow-pedia;
+  -moz-box-shadow: $boxshadow-pedia;
+  .drawer-block {
+    height: 90px;
+  }
+  .drawer-list {
+    .list-anchor {
+      display: flex;
+      flex-direction: column;
+      margin: 0px 9px 0px 9px;
+      a {
+        width: 100%;
+        padding: 10px 0px 10px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: $font-family-Open;
+        color: $text;
+        text-decoration: none;
+        font-size: 14px;
+        border-bottom: 1px solid rgb(228 228 228);
+        .groups {
+          display: flex;
+          align-items: center;
+        }
+        i {
+          margin: 0px 5px 0px 0px;
+          color: $color;
+        }
+      }
+    }
+    .button-app {
+      margin: 15px 0px 0px 0px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .go {
+      width: 90%;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      border-radius: 15px;
+      box-shadow: $boxshadow-pedia;
+      -webkit-box-shadow: $boxshadow-pedia;
+      -moz-box-shadow: $boxshadow-pedia;
+      text-transform: capitalize;
+      background-color: $color;
+      color: $white;
+      font-family: $font-family-Kanit;
+    }
+  }
+}
+
+.drawer {
+  animation: drawer 1s forwards;
+}
+
+.drawer-close {
+  animation: drawer-close 1s forwards;
+}
+
+@keyframes drawer {
+  from {
+    left: -1200px;
+    top: 0;
+  }
+  to {
+    left: 0px;
+    top: 0px;
+  }
+}
+
+@keyframes drawer-close {
+  from {
+    left: 0px;
+    top: 0px;
+  }
+  to {
+    left: -1200px;
+    top: 0px;
+  }
+}

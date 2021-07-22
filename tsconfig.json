@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "lib": ["es5", "es6", "dom", "es2015"],
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "jsx": "react"
+  },
+  "include": ["src/**/*.tsx", "src/**/*.ts"],
+  "exclude": ["node_modules"]
+}

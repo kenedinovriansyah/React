@@ -1,0 +1,64 @@
+{
+  "name": "cashier_f_v1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "we": "webpack --config wp/webpack.prod.js",
+    "wese": "webpack serve --config wp/webpack.dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenedinovriansyah/cashier_f_v1.git"
+  },
+  "author": "kenedi novriansyah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kenedinovriansyah/cashier_f_v1/issues"
+  },
+  "homepage": "https://github.com/kenedinovriansyah/cashier_f_v1#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "connected-react-router": "^6.9.1",
+    "csspin": "^1.1.4",
+    "history": "^4.10.1",
+    "moment": "^2.29.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "react-svg": "^14.0.5",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.8",
+    "@types/axios": "^0.14.0",
+    "@types/history": "^4.7.9",
+    "@types/moment": "^2.13.0",
+    "@types/react": "^17.0.14",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-redux": "^7.1.18",
+    "@types/react-router-dom": "^5.1.8",
+    "@types/react-svg": "^5.0.0",
+    "@types/redux": "^3.6.0",
+    "@types/redux-logger": "^3.0.9",
+    "@types/webpack-env": "^1.16.2",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^6.2.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.2",
+    "node-sass": "^6.0.1",
+    "sass": "^1.35.2",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.2.1",
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.5",
+    "webpack": "^5.45.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.8.0"
+  }
+}
