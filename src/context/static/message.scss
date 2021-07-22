@@ -29,6 +29,10 @@ $text: rgba(49, 53, 59, 0.68);
   .message-exit {
     button {
       background-color: transparent;
+      .icons {
+        width: 12px;
+        height: 12px;
+      }
     }
   }
   .message-body {
@@ -55,6 +59,10 @@ $text: rgba(49, 53, 59, 0.68);
       -webkit-box-shadow: $boxshadow;
       -moz-box-shadow: $boxshadow;
       border-radius: 10px;
+      .icons {
+        width: 15px;
+        height: 15px;
+      }
     }
   }
 }

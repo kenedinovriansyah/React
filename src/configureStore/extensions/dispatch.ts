@@ -34,7 +34,7 @@ class AllDispatch {
 
   public defaultDispatch(dispatch: Dispatch, args: any, type: string) {
     switch (type) {
-      case "draewr":
+      case "drawer":
         dispatch({
           type: DefaultTypes.drawer,
           payload: {
@@ -66,6 +66,22 @@ class AllDispatch {
             loading: args.loading,
             valid: args.valid,
             color: args.color,
+          },
+        });
+        break;
+      case "reset":
+        dispatch({
+          type: DefaultTypes.reset,
+          payload: {
+            reset: args,
+          },
+        });
+        break;
+      case "token":
+        dispatch({
+          type: DefaultTypes.token,
+          payload: {
+            token: args,
           },
         });
         break;

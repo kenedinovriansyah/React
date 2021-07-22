@@ -6,6 +6,8 @@ const initialState: DefaultState = {
   hidden: false,
   loading: false,
   drawer: 0,
+  reset: false,
+  token: "",
   message: {
     message: "",
     loading: false,
@@ -46,6 +48,18 @@ export const defaultReducer: Reducer<DefaultState> = (
           valid: action.payload.valid,
           color: action.payload.color,
         },
+      };
+      break;
+    case DefaultTypes.reset:
+      return {
+        ...state,
+        reset: action.payload.reset,
+      };
+      break;
+    case DefaultTypes.token:
+      return {
+        ...state,
+        token: action.payload.token,
       };
       break;
     default:

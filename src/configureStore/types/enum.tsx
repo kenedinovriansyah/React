@@ -3,4 +3,6 @@ export enum DefaultTypes {
   loading = "@default || loading",
   drawer = "@default || drawer",
   message = "@default || message",
+  reset = "@default || reset",
+  token = "@default || token",
 }

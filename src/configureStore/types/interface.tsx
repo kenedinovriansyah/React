@@ -9,7 +9,9 @@ export interface DefaultState {
   hidden: boolean;
   loading: boolean;
   drawer: number;
+  reset: boolean;
   message: Message;
+  token: string;
 }
 
 export interface User {
@@ -17,7 +19,9 @@ export interface User {
   email?: string;
   first_name?: string;
   last_name?: string;
+  token?: string;
   password?: string;
+  type?: string;
   old_password?: string;
   password_confirmation?: string;
 }

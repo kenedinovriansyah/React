@@ -12,7 +12,7 @@ module.exports = merge(common, {
     open: "Google Chrome",
     proxy: [
       {
-        context: ["/api/v1", "/media"],
+        context: ["/api", "/media"],
         target: "http://localhost:8000",
         secure: true,
       },

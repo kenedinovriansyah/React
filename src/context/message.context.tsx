@@ -3,6 +3,10 @@ import { useDispatch } from "react-redux";
 import { allDispatch } from "../configureStore/extensions/dispatch";
 import { Message } from "../configureStore/types/interface";
 import "./static/message.scss";
+import minus from "../media/icons/minus.svg";
+import check from "../media/icons/check.svg";
+import close from "../media/icons/close.svg";
+import { Icons } from "../ref/icons";
 
 interface ContextProps {
   context: Message;
@@ -38,13 +42,17 @@ export const MessageContextApp = () => {
           >
             <div className="message-exit">
               <button onClick={click.bind("", context.message, context.color)}>
-                <i className="fas fa-times"></i>
+                <Icons src={minus} className="icons" />
               </button>
             </div>
             <div className="message-body">{context.message}</div>
             <div className="message-type">
               <div className="box">
-                <i className="fas fa-times"></i>
+                {context.color ? (
+                  <Icons src={check} className="icons" />
+                ) : (
+                  <Icons src={close} className="icons" />
+                )}
               </div>
             </div>
           </div>

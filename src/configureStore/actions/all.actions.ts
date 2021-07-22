@@ -1,6 +1,7 @@
 import axios, { AxiosResponse, Method } from "axios";
 import { Dispatch } from "redux";
 import { allDispatch } from "../extensions/dispatch";
+import { DefaultTypes } from "../types/enum";
 import { User } from "../types/interface";
 
 export interface ActionsType {
@@ -99,6 +100,12 @@ class AllActions {
             localStorage.setItem("token", res.data.token);
             window.location.reload();
           }
+          dispatch({
+            type: DefaultTypes.reset,
+            payload: {
+              reset: true,
+            },
+          });
         })
         .catch((err) => {
           allDispatch.defaultDispatch(

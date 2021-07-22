@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { ApplicationState } from "../configureStore";
 import { allDispatch } from "../configureStore/extensions/dispatch";
-import { DefaultTypes } from "../configureStore/types/enum";
 import "./static/navbar.scss";
 
 const NavbarComponent = () => {
@@ -30,7 +29,7 @@ const NavbarComponent = () => {
         break;
     }
   };
-  return state.hidden ? null : (
+  return state.hidden ? null : state.token ? null : (
     <div className="navbar">
       <div className="group">
         <img

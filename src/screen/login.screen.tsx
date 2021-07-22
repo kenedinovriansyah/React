@@ -1,14 +1,27 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { ApplicationState } from "../configureStore";
 import { allActions } from "../configureStore/actions/all.actions";
 import { allDispatch } from "../configureStore/extensions/dispatch";
 import "./static/login.scss";
 
 const LoginScreen = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const selector = useSelector((state: ApplicationState) => state.default);
   const [state, setState] = React.useState({ username: "", password: "" });
+  React.useEffect(() => {
+    if (selector.reset) {
+      setState({
+        ...state,
+        username: "",
+        password: "",
+      });
+      allDispatch.defaultDispatch(dispatch, false, "reset");
+    }
+  }, [selector.reset]);
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
     switch (type) {
       case "username":
@@ -52,6 +65,10 @@ const LoginScreen = () => {
     );
   };
 
+  const click = (args: string, params: string) => {
+    history.push(`${args}${params}`);
+  };
+
   return (
     <div className="auth">
       <form onSubmit={onsubmit}>
@@ -70,6 +87,7 @@ const LoginScreen = () => {
               placeholder="Username"
               autoComplete="off"
               value={state.username}
+              readOnly={selector.message.loading}
               onChange={(args) => onChange(args, "username")}
             />
           </div>
@@ -83,6 +101,7 @@ const LoginScreen = () => {
               id="password"
               className="password"
               placeholder="Password"
+              readOnly={selector.message.loading}
               value={state.password}
               onChange={(args) => onChange(args, "password")}
             />
@@ -96,6 +115,9 @@ const LoginScreen = () => {
             <span>Sign in</span>
             {selector.message.loading ? <div className="spin"></div> : null}
           </button>
+          <a onClick={click.bind("", "/loading/", "access-reset-accounts")}>
+            Forgot Password ?
+          </a>
         </div>
       </form>
     </div>
