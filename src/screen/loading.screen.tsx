@@ -16,6 +16,7 @@ const LoadingScreen = () => {
       setTimeout(() => {
         if (params.name === "home") {
           history.push(`/`);
+          allDispatch.defaultDispatch(dispatch, false, "hidden");
         } else {
           allDispatch.defaultDispatch(dispatch, false, "hidden");
 

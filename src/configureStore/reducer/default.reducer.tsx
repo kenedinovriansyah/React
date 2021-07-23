@@ -5,7 +5,18 @@ import { DefaultState } from "../types/interface";
 const initialState: DefaultState = {
   hidden: false,
   loading: false,
-  drawer: 0,
+  drawer: {
+    active: 0,
+    page: "user",
+    child_page: "create",
+    parent_page: "",
+    title: "Create a new user",
+    breadcrumbs: ["Dashboard", "User", "New User"],
+  },
+  default: {
+    employe: [],
+    gender: [],
+  },
   reset: false,
   token: "",
   message: {
@@ -60,6 +71,12 @@ export const defaultReducer: Reducer<DefaultState> = (
       return {
         ...state,
         token: action.payload.token,
+      };
+      break;
+    case DefaultTypes.free_json:
+      return {
+        ...state,
+        default: action.payload.default,
       };
       break;
     default:

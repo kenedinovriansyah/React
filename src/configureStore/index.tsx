@@ -5,13 +5,14 @@ import loggerMiddleware from "redux-logger";
 import stores from "./store";
 import { createBrowserHistory } from "history";
 import { routerMiddleware, RouterState } from "connected-react-router";
-import { DefaultState } from "./types/interface";
+import { DefaultState, UserState } from "./types/interface";
 
 export const history = createBrowserHistory();
 
 export interface ApplicationState {
   router: RouterState;
   default: DefaultState;
+  user: UserState;
 }
 export default function configureStore(preloadedState?: any) {
   const middleware = [thunkMiddleware];

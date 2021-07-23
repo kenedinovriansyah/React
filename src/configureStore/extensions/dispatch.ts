@@ -1,5 +1,6 @@
+import { AxiosResponse } from "axios";
 import { Dispatch } from "redux";
-import { DefaultTypes } from "../types/enum";
+import { DefaultTypes, UserTypes } from "../types/enum";
 
 interface Message {
   non_field_errors: any[];
@@ -14,9 +15,11 @@ class AllDispatch {
       return context.message;
     }
   }
-  public validatorErrorAuth(context: Message) {
-    localStorage.clear();
-    window.location.reload();
+  public validatorErrorAuth(context: Message, err: any) {
+    if (err.response.data.detail) {
+      localStorage.clear();
+      window.location.reload();
+    }
     if (context.message) {
       return context.message;
     } else if (context.non_field_errors) {
@@ -82,6 +85,33 @@ class AllDispatch {
           type: DefaultTypes.token,
           payload: {
             token: args,
+          },
+        });
+        break;
+      default:
+        break;
+    }
+  }
+
+  public userdispatch(
+    dispatch: Dispatch,
+    res: AxiosResponse<any>,
+    type: string
+  ) {
+    switch (type) {
+      case "me":
+        dispatch({
+          type: UserTypes.me,
+          payload: {
+            data: res.data,
+          },
+        });
+        break;
+      case "default":
+        dispatch({
+          type: DefaultTypes.free_json,
+          payload: {
+            default: res.data,
           },
         });
         break;

@@ -33,7 +33,7 @@ export const Routes = () => {
       {/* Context */}
       <DrawerContext.Provider
         value={{
-          open: state.drawer,
+          open: state.drawer.active,
         }}
       >
         <DrawerContextApp />

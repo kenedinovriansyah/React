@@ -6,6 +6,7 @@ import configureStore, { history } from "./configureStore";
 import { ConnectedRouter } from "connected-react-router";
 import { Routes } from "./routes";
 import "csspin/csspin.css";
+import "pretty-checkbox/src/pretty-checkbox.scss";
 
 const store = configureStore();
 

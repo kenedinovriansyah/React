@@ -40,15 +40,16 @@ class AllActions {
       headers = {
         "Access-Control-Allow-Methods": methods,
         "Access-Control-Allow-Headers":
-          "Content-Type, Origin, Accepted, X-Requested-With",
+          "Content-Type, Origin, Accepted, X-Requested-With, Authorization",
         "Access-Control-Allow-Origin": "*",
         "Content-Type": type,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       };
     } else {
       headers = {
         "Access-Control-Allow-Methods": methods,
         "Access-Control-Allow-Headers":
-          "Content-Type, Origin, Accepted, X-Requested-With, Authorization",
+          "Content-Type, Origin, Accepted, X-Requested-With",
         "Access-Control-Allow-Origin": "*",
         "Content-Type": type,
       };
@@ -57,7 +58,11 @@ class AllActions {
   }
 
   non_message() {
-    return ["/api-auth-token/"];
+    return [
+      "/api-auth-token/",
+      "/api/v1/user/accounts/me/",
+      "/api/v1/default/",
+    ];
   }
 
   credentials() {
@@ -96,28 +101,48 @@ class AllActions {
               "message"
             );
           }
+
+          if (context.method === "get") {
+            const splits = context.url.split("/");
+            const name = splits[splits.length - 2];
+            allDispatch.userdispatch(dispatch, res, name);
+          } else {
+            dispatch({
+              type: DefaultTypes.reset,
+              payload: {
+                reset: true,
+              },
+            });
+          }
           if (this.credentials().includes(context.url)) {
             localStorage.setItem("token", res.data.token);
             window.location.reload();
           }
-          dispatch({
-            type: DefaultTypes.reset,
-            payload: {
-              reset: true,
-            },
-          });
         })
         .catch((err) => {
-          allDispatch.defaultDispatch(
-            dispatch,
-            {
-              message: allDispatch.validatorError(err.response.data),
-              loading: false,
-              color: 0,
-              valid: 1,
-            },
-            "message"
-          );
+          if (context.auth) {
+            allDispatch.defaultDispatch(
+              dispatch,
+              {
+                message: allDispatch.validatorErrorAuth(err.response.data, err),
+                loading: false,
+                color: 0,
+                valid: 1,
+              },
+              "message"
+            );
+          } else {
+            allDispatch.defaultDispatch(
+              dispatch,
+              {
+                message: allDispatch.validatorError(err.response.data),
+                loading: false,
+                color: 0,
+                valid: 1,
+              },
+              "message"
+            );
+          }
         });
     };
   }
