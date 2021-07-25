@@ -49,6 +49,52 @@ export const userReducer: Reducer<UserState> = (
         ...state,
       };
       break;
+    case UserTypes.sort_employe:
+      switch (action.payload.data) {
+        case "A-z":
+          state.data.accounts.employe = state.data.accounts.employe.sort(
+            function (a, b) {
+              if (a.first_name < b.first_name) {
+                return -1;
+              }
+            }
+          );
+          break;
+        case "Z-a":
+          console.log("Hello Worlds");
+          state.data.accounts.employe = state.data.accounts.employe.sort(
+            function (a, b) {
+              if (a.first_name > b.first_name) {
+                return -1;
+              }
+            }
+          );
+          break;
+        case "Member":
+          state.data.accounts.employe = state.data.accounts.employe.sort(
+            function (a, b) {
+              if (a.accounts.type.name === "Member") {
+                return -1;
+              }
+            }
+          );
+          break;
+        case "Employe":
+          state.data.accounts.employe = state.data.accounts.employe.sort(
+            function (a, b) {
+              if (a.accounts.type.name === "Staff") {
+                return -1;
+              }
+            }
+          );
+          break;
+        default:
+          break;
+      }
+      return {
+        ...state,
+      };
+      break;
     default:
       return state;
       break;

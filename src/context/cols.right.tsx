@@ -26,6 +26,7 @@ export interface ColsRightStateActions {
   destroyArray: boolean;
   array: any[];
   filter: any[];
+  dropdown: boolean;
 }
 
 export const ColsRightContext = React.createContext<Partial<ContextProps>>({});
@@ -37,6 +38,7 @@ export const ColsRightContextApp = () => {
     destroyArray: false,
     array: [],
     filter: [],
+    dropdown: false,
   });
 
   const selector = useSelector((state: ApplicationState) => state.user);
@@ -124,6 +126,22 @@ export const ColsRightContextApp = () => {
         ),
       });
     }
+  };
+
+  const clickSort = (type: string) => {
+    allDispatch.defaultDispatch(dispatch, type, "sort");
+    setState({
+      ...state,
+      dropdown: !state.dropdown,
+    });
+  };
+
+  const clickDropdown = (args: React.MouseEvent<SVGElement>) => {
+    args.preventDefault();
+    setState({
+      ...state,
+      dropdown: !state.dropdown,
+    });
   };
 
   const clickDestroy = (id: string) => {
@@ -340,7 +358,31 @@ export const ColsRightContextApp = () => {
                         onChange={changeFilter}
                       />
                     </div>
-                    <Icons src={sort} className="icons" />
+                    <div className="filter-list">
+                      <Icons
+                        src={sort}
+                        className="icons"
+                        onClick={clickDropdown}
+                      />
+                      <div
+                        className={
+                          state.dropdown ? "filter-dropdown" : "hidden"
+                        }
+                      >
+                        <a href="#" onClick={clickSort.bind("", "A-z")}>
+                          a-Z
+                        </a>
+                        <a href="#" onClick={clickSort.bind("", "Z-a")}>
+                          Z-a
+                        </a>
+                        <a href="#" onClick={clickSort.bind("", "Member")}>
+                          Member
+                        </a>
+                        <a href="#" onClick={clickSort.bind("", "Employe")}>
+                          Staff
+                        </a>
+                      </div>
+                    </div>
                   </div>
                   <ul className="table-title">
                     <li id="choice">

@@ -754,3 +754,33 @@ $text: rgba(49, 53, 59, 0.68);
     }
   }
 }
+
+.filter-list {
+  position: relative;
+  .filter-dropdown {
+    position: absolute;
+    background-color: $white;
+    box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+      rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+    -webkit-box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+      rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+    -moz-box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+      rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+    border-radius: 10px;
+    width: 200px;
+    animation: dropdown 1s forwards;
+  }
+}
+
+@keyframes dropdown {
+  from {
+    opacity: 0;
+    left: -170px;
+    top: 0px;
+  }
+  to {
+    opacity: 1;
+    left: -170px;
+    top: 40px;
+  }
+}

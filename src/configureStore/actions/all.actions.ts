@@ -110,67 +110,12 @@ class AllActions {
             );
           }
 
-          if (context.type) {
-            switch (context.type.name) {
-              case "destroy_employe":
-                dispatch({
-                  type: UserTypes.destroy_employe,
-                  payload: {
-                    data: context.type.value,
-                  },
-                });
-                break;
-              case "destroy_employe_many":
-                dispatch({
-                  type: UserTypes.destroy_employe_many,
-                  payload: {
-                    data: context.type.value,
-                  },
-                });
-                context.stateActions({
-                  ...context.state,
-                  avatar: null,
-                  avatar_url: "",
-                  destroyArray: false,
-                  array: [],
-                  filter: [],
-                });
-                break;
-              case "update_employe":
-                console.log(res.data, "Hello Worlds");
-                dispatch({
-                  type: UserTypes.update_employe,
-                  payload: {
-                    data: res.data.data,
-                    public: context.type.value,
-                  },
-                });
-                dispatch({
-                  type: DefaultTypes.drawer,
-                  payload: {
-                    drawer: {
-                      active: 0,
-                      page: "user",
-                      child_page: "list",
-                      parent_page: "",
-                      title: "User list",
-                      breadcrumbs: ["Dashboard", "User", "List"],
-                      update: false,
-                      context: {},
-                    },
-                  },
-                });
-                break;
-              default:
-                break;
-            }
-          }
-
           if (context.method === "get") {
             const splits = context.url.split("/");
             const name = splits[splits.length - 2];
             allDispatch.userdispatch(dispatch, res, name);
           } else {
+            allDispatch.userdispatch(dispatch, res, context);
             dispatch({
               type: DefaultTypes.reset,
               payload: {

@@ -89,6 +89,13 @@ class AllDispatch {
           },
         });
         break;
+      case "sort":
+        dispatch({
+          type: UserTypes.sort_employe,
+          payload: {
+            data: args,
+          },
+        });
       default:
         break;
     }
@@ -97,9 +104,9 @@ class AllDispatch {
   public userdispatch(
     dispatch: Dispatch,
     res: AxiosResponse<any>,
-    type: string
+    context: any
   ) {
-    switch (type) {
+    switch (context) {
       case "me":
         dispatch({
           type: UserTypes.me,
@@ -118,6 +125,61 @@ class AllDispatch {
         break;
       default:
         break;
+    }
+    if (context.type) {
+      switch (context.type.name) {
+        case "destroy_employe":
+          dispatch({
+            type: UserTypes.destroy_employe,
+            payload: {
+              data: context.type.value,
+            },
+          });
+          break;
+        case "destroy_employe_many":
+          dispatch({
+            type: UserTypes.destroy_employe_many,
+            payload: {
+              data: context.type.value,
+            },
+          });
+          context.stateActions({
+            ...context.state,
+            avatar: null,
+            avatar_url: "",
+            destroyArray: false,
+            array: [],
+            filter: [],
+          });
+          break;
+        case "update_employe":
+          dispatch({
+            type: UserTypes.update_employe,
+            payload: {
+              data: res.data.data,
+              public: context.type.value,
+            },
+          });
+          dispatch({
+            type: DefaultTypes.drawer,
+            payload: {
+              drawer: {
+                active: 0,
+                page: "user",
+                child_page: "list",
+                parent_page: "",
+                title: "User list",
+                breadcrumbs: ["Dashboard", "User", "List"],
+                update: false,
+                context: {},
+              },
+            },
+          });
+          break;
+
+        default:
+          break;
+      }
     }
   }
 }

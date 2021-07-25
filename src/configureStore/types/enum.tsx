@@ -13,4 +13,5 @@ export enum UserTypes {
   destroy_employe = "@@user/destroy_employe",
   destroy_employe_many = "@@user/destroy_employe_many",
   update_employe = "@@user/update_employe",
+  sort_employe = "@@user/sort_employe",
 }
