@@ -7,6 +7,7 @@ import LeftCols from "./application/left";
 import { ApplicationState } from "../configureStore";
 import { allDispatch } from "../configureStore/extensions/dispatch";
 import { ColsRightContext, ColsRightContextApp } from "../context/cols.right";
+import { User } from "../configureStore/types/interface";
 
 const ApplicationScreen = () => {
   const selector = useSelector((state: ApplicationState) => state.default);
@@ -30,7 +31,7 @@ const ApplicationScreen = () => {
     };
   }, []);
 
-  const click = (name: string, type: string) => {
+  const click = (name: string, type: string, args: User) => {
     switch (type) {
       case "parent-page":
         allDispatch.defaultDispatch(
@@ -42,6 +43,8 @@ const ApplicationScreen = () => {
             title: selector.drawer.title,
             breadcrumbs: selector.drawer.breadcrumbs,
             parent_page: name,
+            update: true,
+            context: args,
           },
           "drawer"
         );

@@ -1,7 +1,7 @@
 import React from "react";
 import { Drawer, User } from "../configureStore/types/interface";
 import _ from "lodash";
-import { PasswordContext, PasswordContextApp } from "./password.context";
+import { AccountsContext, AccountsContextApp } from "./accounts.context";
 import { Icons } from "../ref/icons";
 import CreateForm from "./applicationForm/create.form";
 import sort from "../media/icons/sort.svg";
@@ -16,7 +16,7 @@ import { allDispatch } from "../configureStore/extensions/dispatch";
 
 interface ContextProps {
   open: Drawer;
-  click(name: string, type: string): void;
+  click(name: string, type: string, args: User): void;
 }
 
 export interface ColsRightStateActions {
@@ -185,7 +185,7 @@ export const ColsRightContextApp = () => {
           case "accounts":
             return (
               <>
-                <PasswordContext.Provider
+                <AccountsContext.Provider
                   value={{
                     open: open.parent_page,
                   }}
@@ -208,7 +208,17 @@ export const ColsRightContextApp = () => {
                   </div>
                   <ul className="app-tabs">
                     <li>
-                      <a href="">General</a>
+                      <a
+                        href="#"
+                        onClick={click.bind(
+                          "",
+                          "general",
+                          "parent-page",
+                          selector.data
+                        )}
+                      >
+                        General
+                      </a>
                     </li>
                     <li>
                       <a href="">Billing</a>
@@ -242,8 +252,8 @@ export const ColsRightContextApp = () => {
                       </a>
                     </li>
                   </ul>
-                  <PasswordContextApp />
-                </PasswordContext.Provider>
+                  <AccountsContextApp />
+                </AccountsContext.Provider>
               </>
             );
             break;

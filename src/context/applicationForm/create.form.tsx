@@ -212,6 +212,9 @@ const CreateForm = () => {
 
   const submit = (args: React.FormEvent<HTMLFormElement>) => {
     args.preventDefault();
+    const owner =
+      selector.default.drawer.context.accounts.public_id !==
+      selector.user.data.accounts.public_id;
     const data = new FormData();
     data.append("username", state.username);
     data.append("email", state.email);
@@ -228,7 +231,10 @@ const CreateForm = () => {
     if (state.avatar) {
       data.append("avatar", state.avatar);
     }
-    data.append("types", "employe");
+    if (owner) {
+      data.append("types", "employe");
+    }
+
     allDispatch.defaultDispatch(
       dispatch,
       {
@@ -242,7 +248,9 @@ const CreateForm = () => {
     dispatch(
       allActions.all({
         url: defaults.drawer.update
-          ? `/api/v1/user/updated/accounts/employe/${defaults.drawer.context.accounts.public_id}/`
+          ? !owner
+            ? "/api/v1/user/updated/accounts/"
+            : `/api/v1/user/updated/accounts/employe/${defaults.drawer.context.accounts.public_id}/`
           : "/api/v1/user/updated/accounts/",
         dataForm: data,
         status: 200,
@@ -250,7 +258,7 @@ const CreateForm = () => {
         auth: true,
         method: "post",
         type: {
-          name: "update_employe",
+          name: !owner ? "updated_accounts" : "update_employe",
           value: defaults.drawer.context.accounts.public_id,
         },
       })

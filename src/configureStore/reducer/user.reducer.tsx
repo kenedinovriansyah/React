@@ -95,6 +95,12 @@ export const userReducer: Reducer<UserState> = (
         ...state,
       };
       break;
+    case UserTypes.update_accounts:
+      return {
+        ...state,
+        data: action.payload.data,
+      };
+      break;
     default:
       return state;
       break;

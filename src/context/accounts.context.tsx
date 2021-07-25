@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { ApplicationState } from "../configureStore";
 import { allActions } from "../configureStore/actions/all.actions";
 import { allDispatch } from "../configureStore/extensions/dispatch";
+import CreateForm from "./applicationForm/create.form";
 
 export interface ContextProps {
   open: string;
 }
 
-export const PasswordContext = React.createContext<Partial<ContextProps>>({});
-export const PasswordContextApp = () => {
+export const AccountsContext = React.createContext<Partial<ContextProps>>({});
+export const AccountsContextApp = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state: ApplicationState) => state);
   const [state, setState] = React.useState({
@@ -95,9 +96,12 @@ export const PasswordContextApp = () => {
     );
   };
   return (
-    <PasswordContext.Consumer>
+    <AccountsContext.Consumer>
       {({ open }) => {
         switch (open) {
+          case "general":
+            return <CreateForm />;
+            break;
           case "password":
             return (
               <div className={open === "password" ? "transition" : "hidden"}>
@@ -208,6 +212,6 @@ export const PasswordContextApp = () => {
             break;
         }
       }}
-    </PasswordContext.Consumer>
+    </AccountsContext.Consumer>
   );
 };

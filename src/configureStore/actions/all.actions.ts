@@ -116,12 +116,14 @@ class AllActions {
             allDispatch.userdispatch(dispatch, res, name);
           } else {
             allDispatch.userdispatch(dispatch, res, context);
-            dispatch({
-              type: DefaultTypes.reset,
-              payload: {
-                reset: true,
-              },
-            });
+            if (context.type.name !== "updated_accounts") {
+              dispatch({
+                type: DefaultTypes.reset,
+                payload: {
+                  reset: true,
+                },
+              });
+            }
           }
           if (this.credentials().includes(context.url)) {
             localStorage.setItem("token", res.data.token);

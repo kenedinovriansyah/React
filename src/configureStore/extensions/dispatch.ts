@@ -176,7 +176,14 @@ class AllDispatch {
             },
           });
           break;
-
+        case "updated_accounts":
+          dispatch({
+            type: UserTypes.update_accounts,
+            payload: {
+              data: res.data,
+            },
+          });
+          break;
         default:
           break;
       }
