@@ -4,10 +4,6 @@ import { allActions } from "../configureStore/actions/all.actions";
 import _ from "lodash";
 import "./static/application.scss";
 import LeftCols from "./application/left";
-import {
-  PasswordContext,
-  PasswordContextApp,
-} from "../context/password.context";
 import { ApplicationState } from "../configureStore";
 import { allDispatch } from "../configureStore/extensions/dispatch";
 import { ColsRightContext, ColsRightContextApp } from "../context/cols.right";

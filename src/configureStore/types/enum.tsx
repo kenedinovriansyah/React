@@ -10,4 +10,7 @@ export enum DefaultTypes {
 
 export enum UserTypes {
   me = "@@user/me",
+  destroy_employe = "@@user/destroy_employe",
+  destroy_employe_many = "@@user/destroy_employe_many",
+  update_employe = "@@user/update_employe",
 }

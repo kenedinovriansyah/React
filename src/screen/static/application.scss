@@ -494,3 +494,263 @@ $text: rgba(49, 53, 59, 0.68);
     height: auto;
   }
 }
+
+.app-table {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  background-color: $white;
+  box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+    rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+  -webkit-box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+    rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+  -moz-box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+    rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+  border-radius: 15px;
+  padding: 15px;
+  overflow: hidden;
+  #field-input {
+    border-radius: 10px;
+    height: 50px;
+    max-width: 320px;
+    box-shadow: none;
+    border: solid 1px rgba(0, 0, 0, 0.12);
+
+    .icons {
+      width: 18px;
+      height: 18px;
+      margin: 0px 15px 0px 15px;
+    }
+    input {
+      padding: 0px;
+      &:hover {
+        padding: 0px 0px 0px 10px;
+      }
+    }
+  }
+  .app-table-destroy {
+    position: absolute;
+    width: 100%;
+    height: 75px;
+    background-color: rgb(200, 250, 205);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 1.55rem 0px 1.55rem;
+    left: 0;
+    top: 0;
+    span {
+      font-family: $font-family-public;
+      font-weight: bold;
+      color: $color;
+      font-size: 13.333px;
+      .icons {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        fill: $text;
+      }
+    }
+  }
+  .groups {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .icons {
+      width: 20px;
+      height: 20px;
+      margin: 0px 10px 0px 0px;
+      cursor: pointer;
+      fill: $text;
+    }
+  }
+}
+
+.app-list {
+  .group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    button {
+      width: 160px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $white;
+      color: $color;
+      font-family: $font-family-Kanit;
+      border-radius: 30px;
+      margin: 0px 15px 0px 0px;
+      box-shadow: $boxshadow-pedia;
+      -webkit-box-shadow: $boxshadow-pedia;
+      -moz-box-shadow: $boxshadow-pedia;
+    }
+  }
+}
+
+.table-title {
+  padding: 15px 10px 15px 10px;
+  border-radius: 10px;
+  margin: 0px;
+  background-color: #f9f9f9;
+  white-space: nowrap;
+  li {
+    display: inline-block;
+    align-items: center;
+    margin: 0px 5px 0px 5px;
+    font-family: $font-family-public;
+    font-weight: bold;
+    font-size: 13.333px;
+    width: 100%;
+    max-width: 200px;
+  }
+  #choice {
+    width: 40px;
+    position: relative;
+    .box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -75%);
+      cursor: pointer;
+      width: 17px;
+      height: 17px;
+      border: solid 2px #555;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      i {
+        font-size: 8px;
+      }
+    }
+    .box#active {
+      background-color: $color;
+      border: solid 2px $color;
+      i {
+        color: $white;
+      }
+    }
+  }
+  #gender {
+    max-width: 90px;
+  }
+  #phone {
+    max-width: 170px;
+  }
+  #type {
+    max-width: 100px;
+  }
+  #options {
+    max-width: 90px;
+  }
+}
+
+.table-app {
+  max-height: 78%;
+  overflow: auto;
+  margin: 10px 0px 0px 0px;
+  /* width */
+  &::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  ul {
+    list-style-type: none;
+    padding: 5px 10px 5px 10px;
+    margin: 0px;
+    border-bottom: solid 1px #f1f1f1;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    li {
+      display: inline-block;
+      align-items: center;
+      margin: 0px;
+      padding: 0px;
+      font-family: $font-family-public;
+      font-size: 13.333px;
+      width: 100%;
+      max-width: 200px;
+      margin: 0px 5px 5px 5px;
+      .group {
+        display: flex;
+        align-items: center;
+        .box {
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: $white;
+          box-shadow: $boxshadow-pedia;
+          -webkit-box-shadow: $boxshadow-pedia;
+          -moz-box-shadow: $boxshadow-pedia;
+          border-radius: 10px;
+          margin: 0px 3px 0px 3px;
+          .icons {
+            width: 20px;
+            height: 20px;
+            margin: 0px;
+          }
+        }
+      }
+    }
+
+    #choice {
+      width: 40px;
+      position: relative;
+      .box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+        width: 17px;
+        height: 17px;
+        border: solid 2px #555;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        i {
+          font-size: 8px;
+        }
+      }
+      .box#active {
+        background-color: $color;
+        border: solid 2px $color;
+        i {
+          color: $white;
+        }
+      }
+    }
+    #gender {
+      max-width: 90px;
+    }
+    #phone {
+      max-width: 170px;
+    }
+    #type {
+      max-width: 100px;
+    }
+    #options {
+      max-width: 60px;
+    }
+  }
+}

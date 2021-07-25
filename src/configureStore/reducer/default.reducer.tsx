@@ -8,10 +8,12 @@ const initialState: DefaultState = {
   drawer: {
     active: 0,
     page: "user",
-    child_page: "create",
+    child_page: "list",
     parent_page: "",
-    title: "Create a new user",
-    breadcrumbs: ["Dashboard", "User", "New User"],
+    title: "User list",
+    breadcrumbs: ["Dashboard", "User", "List"],
+    update: false,
+    context: {},
   },
   default: {
     employe: [],

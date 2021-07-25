@@ -38,6 +38,7 @@ class AllDispatch {
   public defaultDispatch(dispatch: Dispatch, args: any, type: string) {
     switch (type) {
       case "drawer":
+        console.log(args);
         dispatch({
           type: DefaultTypes.drawer,
           payload: {

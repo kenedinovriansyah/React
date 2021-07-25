@@ -114,7 +114,12 @@ const LeftCols = () => {
             className={
               selector.drawer.page === "user" ? "a-active" : "a-unactive"
             }
-            href=""
+            href="#"
+            onClick={click.bind("", "list", "child-page", "User List", [
+              "Dashboard",
+              "User",
+              "List",
+            ])}
           >
             List
           </a>

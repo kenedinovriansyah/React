@@ -54,6 +54,8 @@ export interface Drawer {
   parent_page: string;
   title: string;
   breadcrumbs: any[];
+  update: boolean;
+  context: User;
 }
 
 export interface DefaultState {
@@ -70,6 +72,7 @@ export interface DefaultState {
 }
 
 export interface User {
+  id?: number;
   username?: string;
   email?: string;
   first_name?: string;

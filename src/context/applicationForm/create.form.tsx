@@ -90,6 +90,33 @@ const CreateForm: React.FC<ContextProps> = (
       avatar_url: "",
     });
   }, [defaults.reset]);
+
+  React.useEffect(() => {
+    if (selector.default.drawer.update) {
+      setState({
+        ...state,
+        first_name: selector.default.drawer.context.first_name,
+        last_name: selector.default.drawer.context.last_name,
+        username: selector.default.drawer.context.username,
+        email: selector.default.drawer.context.email,
+        gender: selector.default.drawer.context.accounts.name_gender,
+        genderId: selector.default.drawer.context.accounts.gender,
+        genderDropdown: false,
+        type: selector.default.drawer.context.accounts.type.name,
+        typeId: selector.default.drawer.context.accounts.type.type,
+        typeDropdown: false,
+        phone_number:
+          selector.default.drawer.context.accounts.phone.phone_numbers,
+        country: selector.default.drawer.context.accounts.address.country,
+        state: selector.default.drawer.context.accounts.address.state,
+        city: selector.default.drawer.context.accounts.address.city,
+        address: selector.default.drawer.context.accounts.address.address,
+        postal_code:
+          selector.default.drawer.context.accounts.address.postal_code,
+        avatar: null,
+      });
+    }
+  }, [selector.default.drawer.update]);
   const change = (
     args: React.ChangeEvent<HTMLInputElement>,
     context: string
@@ -210,7 +237,9 @@ const CreateForm: React.FC<ContextProps> = (
     data.append("city", state.city);
     data.append("address", state.address);
     data.append("postal_code", state.postal_code);
-    data.append("avatar", props.state.avatar);
+    if (props.state.avatar) {
+      data.append("avatar", props.state.avatar);
+    }
     data.append("types", "employe");
     allDispatch.defaultDispatch(
       dispatch,
@@ -224,12 +253,18 @@ const CreateForm: React.FC<ContextProps> = (
     );
     dispatch(
       allActions.all({
-        url: "/api/v1/user/updated/accounts/",
+        url: defaults.drawer.update
+          ? `/api/v1/user/updated/accounts/employe/${defaults.drawer.context.accounts.public_id}/`
+          : "/api/v1/user/updated/accounts/",
         dataForm: data,
         status: 200,
         json: false,
         auth: true,
         method: "post",
+        type: {
+          name: "update_employe",
+          value: defaults.drawer.context.accounts.public_id,
+        },
       })
     );
   };
