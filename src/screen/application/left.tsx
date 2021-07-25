@@ -142,7 +142,7 @@ const LeftCols = () => {
             className={
               selector.drawer.page === "user" ? "a-active" : "a-unactive"
             }
-            href=""
+            href="#"
           >
             Edit
           </a>

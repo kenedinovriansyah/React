@@ -2,7 +2,6 @@ import React from "react";
 import { Drawer, User } from "../configureStore/types/interface";
 import _ from "lodash";
 import { PasswordContext, PasswordContextApp } from "./password.context";
-import camera from "../media/icons/camera.svg";
 import { Icons } from "../ref/icons";
 import CreateForm from "./applicationForm/create.form";
 import sort from "../media/icons/sort.svg";
@@ -21,8 +20,6 @@ interface ContextProps {
 }
 
 export interface ColsRightStateActions {
-  avatar: any;
-  avatar_url: any;
   destroyArray: boolean;
   array: any[];
   filter: any[];
@@ -33,8 +30,6 @@ export const ColsRightContext = React.createContext<Partial<ContextProps>>({});
 export const ColsRightContextApp = () => {
   const dispatch = useDispatch();
   const [state, setState] = React.useState<ColsRightStateActions>({
-    avatar: null,
-    avatar_url: "",
     destroyArray: false,
     array: [],
     filter: [],
@@ -42,18 +37,6 @@ export const ColsRightContextApp = () => {
   });
 
   const selector = useSelector((state: ApplicationState) => state.user);
-  const defaults = useSelector((state: ApplicationState) => state.default);
-
-  React.useEffect(() => {
-    if (defaults.drawer.update) {
-      if (defaults.drawer.context.accounts.avatar) {
-        setState({
-          ...state,
-          avatar_url: defaults.drawer.context.accounts.avatar,
-        });
-      }
-    }
-  }, [defaults.drawer.update]);
 
   const handleClick = (type: string) => {
     switch (type) {
@@ -70,20 +53,41 @@ export const ColsRightContextApp = () => {
     }
   };
 
-  const clickUpdateList = (args: User) => {
-    allDispatch.defaultDispatch(
-      dispatch,
-      {
-        active: 0,
-        page: "user",
-        child_page: "create",
-        title: "Edit User",
-        breadcrumbs: ["Dashboard", "User", "Edit User"],
-        update: true,
-        context: args,
-      },
-      "drawer"
-    );
+  const changePage = (args: User, type: string) => {
+    switch (type) {
+      case "updated":
+        allDispatch.defaultDispatch(
+          dispatch,
+          {
+            active: 0,
+            page: "user",
+            child_page: "create",
+            title: "Edit User",
+            breadcrumbs: ["Dashboard", "User", "Edit User"],
+            update: true,
+            context: args,
+          },
+          "drawer"
+        );
+        break;
+      case "create":
+        allDispatch.defaultDispatch(
+          dispatch,
+          {
+            active: "",
+            page: "user",
+            child_page: "create",
+            title: "Create a User",
+            breadcrumbs: ["Dashboard", "User", "New User"],
+            update: false,
+            context: null,
+          },
+          "drawer"
+        );
+        break;
+      default:
+        break;
+    }
   };
 
   const clickAddOrRemove = (args: User) => {
@@ -99,14 +103,6 @@ export const ColsRightContextApp = () => {
     setState({
       ...state,
       array: filter ? array : [...state.array, args],
-    });
-  };
-
-  const changeFiles = (args: React.ChangeEvent<HTMLInputElement>) => {
-    setState({
-      ...state,
-      avatar: args.currentTarget.files[0],
-      avatar_url: URL.createObjectURL(args.currentTarget.files[0]),
     });
   };
 
@@ -270,43 +266,7 @@ export const ColsRightContextApp = () => {
                     })}
                   </ul>
                 </div>
-                <div className="create-grid">
-                  <div className="create-cols">
-                    <div className="create-upload-avatar">
-                      <div className="upload-avatar">
-                        <div className="upload-btn-wrapper">
-                          <input
-                            type="file"
-                            name="avatar"
-                            id="avatar"
-                            className="avatar"
-                            onChange={changeFiles}
-                            accept=".jpg,jpeg,.png"
-                          />
-                          {state.avatar_url ? (
-                            <img
-                              src={state.avatar_url}
-                              alt=""
-                              className="avatar"
-                            />
-                          ) : (
-                            <div className="child-upload-avatar">
-                              <Icons src={camera} className="icons" />
-                              <span>Upload photo</span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className="title">
-                        <span>Allowed *.jpeg, *.jpg, *.png, *.gif</span>{" "}
-                        <span>max size of 3.1 MB</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="create-cols">
-                    <CreateForm state={state} setState={setState} />
-                  </div>
-                </div>
+                <CreateForm />
               </div>
             );
             break;
@@ -329,7 +289,7 @@ export const ColsRightContextApp = () => {
                         );
                       })}
                     </ul>
-                    <button>
+                    <button onClick={changePage.bind("", "", "create")}>
                       <span>New User</span>
                     </button>
                   </div>
@@ -459,7 +419,11 @@ export const ColsRightContextApp = () => {
                               <div className="group">
                                 <button
                                   className="box"
-                                  onClick={clickUpdateList.bind(base, base)}
+                                  onClick={changePage.bind(
+                                    base,
+                                    base,
+                                    "updated"
+                                  )}
                                 >
                                   <Icons src={edit} className="icons" />
                                 </button>
