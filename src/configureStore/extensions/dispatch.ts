@@ -180,7 +180,7 @@ class AllDispatch {
           dispatch({
             type: UserTypes.update_accounts,
             payload: {
-              data: res.data,
+              data: res.data.data,
             },
           });
           break;
