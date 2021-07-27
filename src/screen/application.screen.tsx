@@ -8,10 +8,14 @@ import { ApplicationState } from "../configureStore";
 import { allDispatch } from "../configureStore/extensions/dispatch";
 import { ColsRightContext, ColsRightContextApp } from "../context/cols.right";
 import { User } from "../configureStore/types/interface";
+import { Icons } from "../ref/icons";
+import search from "../media/icons/magnifying-glass-search.svg";
 
 const ApplicationScreen = () => {
   const selector = useSelector((state: ApplicationState) => state.default);
+  const select = useSelector((state: ApplicationState) => state);
   const dispatch = useDispatch();
+  const [state, setState] = React.useState();
 
   React.useEffect(() => {
     let mounted = true;
@@ -30,6 +34,21 @@ const ApplicationScreen = () => {
       mounted = false;
     };
   }, []);
+
+  const change = (args: React.ChangeEvent<HTMLInputElement>) => {
+    switch (selector.drawer.child_page) {
+      case "card":
+        allDispatch.defaultDispatch(
+          dispatch,
+          args.currentTarget.value,
+          "search-user"
+        );
+        break;
+
+      default:
+        break;
+    }
+  };
 
   const click = (name: string, type: string, args: User) => {
     switch (type) {
@@ -68,6 +87,35 @@ const ApplicationScreen = () => {
             <LeftCols />
           </div>
           <div className="app-cols">
+            <div className="app-navbar">
+              <div className="field" id="field-input">
+                <Icons src={search} className="icons" />
+                <input
+                  type="text"
+                  name="search"
+                  id="search"
+                  className="search"
+                  placeholder="Search"
+                  autoComplete="off"
+                  onChange={change}
+                  value={state}
+                />
+              </div>
+              <div className="group">
+                <div className="app-navbar-avatar">
+                  <img
+                    src={
+                      select.user.data
+                        ? select.user.data.accounts
+                          ? select.user.data.accounts.avatar
+                          : ""
+                        : ""
+                    }
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
             <div className="app-right">
               <ColsRightContextApp />
             </div>

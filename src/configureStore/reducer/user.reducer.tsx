@@ -1,16 +1,18 @@
 import { Reducer } from "redux";
 import { UserTypes } from "../types/enum";
-import { UserState } from "../types/interface";
+import { User, UserState } from "../types/interface";
 
 const initialState: UserState = {
   user: [],
   data: {},
+  soft: [],
 };
 
 export const userReducer: Reducer<UserState> = (
   state = initialState,
   action
 ) => {
+  let soft: any[];
   switch (action.type) {
     case UserTypes.me:
       return {
@@ -23,6 +25,7 @@ export const userReducer: Reducer<UserState> = (
         return x.accounts.public_id != action.payload.data;
       });
       state.data.accounts.employe = data;
+      state.soft = data;
       return {
         ...state,
       };
@@ -61,7 +64,6 @@ export const userReducer: Reducer<UserState> = (
           );
           break;
         case "Z-a":
-          console.log("Hello Worlds");
           state.data.accounts.employe = state.data.accounts.employe.sort(
             function (a, b) {
               if (a.first_name > b.first_name) {
@@ -99,6 +101,36 @@ export const userReducer: Reducer<UserState> = (
       return {
         ...state,
         data: action.payload.data,
+      };
+      break;
+    case UserTypes.search_employe:
+      return {
+        ...state,
+        soft: state.data.accounts.employe.filter(
+          (x) =>
+            x.first_name
+              .toLowerCase()
+              .indexOf(action.payload.data.toLowerCase()) > -1 ||
+            x.last_name
+              .toLowerCase()
+              .indexOf(action.payload.data.toLowerCase()) > -1 ||
+            x.accounts.type.name
+              .toLowerCase()
+              .indexOf(action.payload.data.toLowerCase()) > -1 ||
+            x.accounts.address.address
+              .toLowerCase()
+              .indexOf(action.payload.data.toLowerCase()) > -1
+        ),
+      };
+      break;
+    case UserTypes.add_employe:
+      let data_: User = action.payload.data;
+      state.data.accounts.employe = [
+        ...state.data.accounts.employe,
+        data_.accounts.employe[data_.accounts.employe.length - 1],
+      ];
+      return {
+        ...state,
       };
       break;
     default:

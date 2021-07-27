@@ -40,6 +40,7 @@ const LeftCols = () => {
             title: title,
             breadcrumbs: link,
             child_page: name,
+            record: true,
           },
           "drawer"
         );
@@ -109,6 +110,14 @@ const LeftCols = () => {
             href=""
           >
             Profile
+          </a>
+          <a
+            className={
+              selector.drawer.page === "user" ? "a-active" : "a-unactive"
+            }
+            href=""
+          >
+            Crads
           </a>
           <a
             className={

@@ -56,6 +56,7 @@ export interface Drawer {
   breadcrumbs: any[];
   update: boolean;
   context: User;
+  record: boolean;
 }
 
 export interface DefaultState {
@@ -88,4 +89,5 @@ export interface User {
 export interface UserState {
   readonly user: User[];
   readonly data: User;
+  soft: any[];
 }

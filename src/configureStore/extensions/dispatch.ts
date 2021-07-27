@@ -38,11 +38,20 @@ class AllDispatch {
   public defaultDispatch(dispatch: Dispatch, args: any, type: string) {
     switch (type) {
       case "drawer":
-        console.log(args);
         dispatch({
           type: DefaultTypes.drawer,
           payload: {
-            drawer: args,
+            drawer: {
+              active: args.active,
+              page: args.page,
+              child_page: args.child_page,
+              title: args.title,
+              breadcrumbs: args.breadcrumbs,
+              update: args.update,
+              context: args.context,
+              record: args.record,
+              parent_page: args.parent_page,
+            },
           },
         });
         break;
@@ -96,6 +105,15 @@ class AllDispatch {
             data: args,
           },
         });
+        break;
+      case "search-user":
+        dispatch({
+          type: UserTypes.search_employe,
+          payload: {
+            data: args,
+          },
+        });
+        break;
       default:
         break;
     }
@@ -172,6 +190,7 @@ class AllDispatch {
                 breadcrumbs: ["Dashboard", "User", "List"],
                 update: false,
                 context: {},
+                record: false,
               },
             },
           });
@@ -181,6 +200,30 @@ class AllDispatch {
             type: UserTypes.update_accounts,
             payload: {
               data: res.data.data,
+            },
+          });
+          break;
+        case "add_employe":
+          dispatch({
+            type: UserTypes.add_employe,
+            payload: {
+              data: res.data.data,
+            },
+          });
+          dispatch({
+            type: DefaultTypes.drawer,
+            payload: {
+              drawer: {
+                active: 0,
+                page: "user",
+                child_page: "list",
+                parent_page: "",
+                title: "User list",
+                breadcrumbs: ["Dashboard", "User", "List"],
+                update: false,
+                context: {},
+                record: false,
+              },
             },
           });
           break;

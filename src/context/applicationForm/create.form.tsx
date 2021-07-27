@@ -212,9 +212,12 @@ const CreateForm = () => {
 
   const submit = (args: React.FormEvent<HTMLFormElement>) => {
     args.preventDefault();
-    const owner =
-      selector.default.drawer.context.accounts.public_id !==
-      selector.user.data.accounts.public_id;
+    let owner: any = true;
+    if (selector.default.drawer.context) {
+      owner =
+        selector.default.drawer.context.accounts.public_id !==
+        selector.user.data.accounts.public_id;
+    }
     const data = new FormData();
     data.append("username", state.username);
     data.append("email", state.email);
@@ -258,8 +261,14 @@ const CreateForm = () => {
         auth: true,
         method: "post",
         type: {
-          name: !owner ? "updated_accounts" : "update_employe",
-          value: defaults.drawer.context.accounts.public_id,
+          name: selector.default.drawer.record
+            ? "add_employe"
+            : !owner
+            ? "updated_accounts"
+            : "update_employe",
+          value: selector.default.drawer.context
+            ? selector.default.drawer.context.accounts.public_id
+            : "",
         },
       })
     );

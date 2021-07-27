@@ -13,6 +13,7 @@ import trashs from "../media/icons/trash.svg";
 import search from "../media/icons/magnifying-glass-search.svg";
 import { allActions } from "../configureStore/actions/all.actions";
 import { allDispatch } from "../configureStore/extensions/dispatch";
+import ShapeAvatar from "../media/icons/shape-avatar.svg";
 
 interface ContextProps {
   open: Drawer;
@@ -81,6 +82,7 @@ export const ColsRightContextApp = () => {
             breadcrumbs: ["Dashboard", "User", "New User"],
             update: false,
             context: null,
+            record: true,
           },
           "drawer"
         );
@@ -453,6 +455,98 @@ export const ColsRightContextApp = () => {
                       }
                     )}
                   </div>
+                </div>
+              </div>
+            );
+            break;
+          case "card":
+            return (
+              <div>
+                <div className="headers">
+                  <div className="title">
+                    <h5>{open.title}</h5>
+                  </div>
+                  <div className="group">
+                    <ul className="location">
+                      {_.map(open.breadcrumbs, (base, index) => {
+                        return (
+                          <li key={index}>
+                            <a>
+                              <span>{base}</span>
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+                <div className="lists-card">
+                  {_.map(
+                    selector.soft.length >= 1
+                      ? selector.soft
+                      : selector.data
+                      ? selector.data.accounts
+                        ? selector.data.accounts.employe
+                        : []
+                      : [],
+                    (items, index) => {
+                      return (
+                        <div className="card" key={index}>
+                          <div className="card-image">
+                            <img
+                              src="https://img.jakpost.net/c/2018/11/01/2018_11_01_57705_1541067002._large.jpg"
+                              alt=""
+                            />
+                          </div>
+                          <div className="card-header">
+                            <div className="card-image-avatar">
+                              <img src={items.accounts.avatar} alt="" />
+                              <Icons src={ShapeAvatar} className="bg-trans" />
+                            </div>
+                            <div className="block"></div>
+                            <div className="group">
+                              <span>{items.first_name}</span>
+                              <span>{items.last_name}</span>
+                            </div>
+                            <div className="status">
+                              <span>{items.accounts.type.name}</span>
+                            </div>
+                          </div>
+                          <div className="card-body">
+                            <span className="phone">
+                              {items.accounts.phone.phone_numbers}
+                            </span>
+                            <div className="group">
+                              <span>{items.accounts.address.country}</span>
+                              <span>{items.accounts.address.state}</span>
+                              <span>{items.accounts.address.city}</span>
+                              <span>{items.accounts.address.address}</span>
+                              <span>{items.accounts.address.postal_code}</span>
+                            </div>
+                            <div className="groups">
+                              <button
+                                onClick={changePage.bind(
+                                  items,
+                                  items,
+                                  "updated"
+                                )}
+                              >
+                                <Icons className="icons" src={edit} />
+                              </button>
+                              <button
+                                onClick={clickDestroy.bind(
+                                  items,
+                                  items.accounts.public_id
+                                )}
+                              >
+                                <Icons className="icons" src={trash} />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    }
+                  )}
                 </div>
               </div>
             );
