@@ -1,37 +1,37 @@
-import _ from "lodash";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { ApplicationState } from "../../configureStore";
-import { allActions } from "../../configureStore/actions/all.actions";
-import down from "../../media/icons/chevron-arrow-down.svg";
-import { Icons } from "../../ref/icons";
-import info from "../../media/icons/info-1.svg";
-import { allDispatch } from "../../configureStore/extensions/dispatch";
-import camera from "../../media/icons/camera.svg";
+import _ from 'lodash';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ApplicationState } from '../../configureStore';
+import { allActions } from '../../configureStore/actions/all.actions';
+import down from '../../media/icons/chevron-arrow-down.svg';
+import { Icons } from '../../ref/icons';
+import info from '../../media/icons/info-1.svg';
+import { allDispatch } from '../../configureStore/extensions/dispatch';
+import camera from '../../media/icons/camera.svg';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state: ApplicationState) => state);
   const defaults = useSelector((state: ApplicationState) => state.default);
   const [state, setState] = React.useState({
-    first_name: "",
-    last_name: "",
-    username: "",
-    email: "",
-    gender: "",
-    genderId: "",
+    first_name: '',
+    last_name: '',
+    username: '',
+    email: '',
+    gender: '',
+    genderId: '',
     genderDropdown: false,
-    type: "",
-    typeId: "",
+    type: '',
+    typeId: '',
     typeDropdown: false,
-    phone_number: "",
-    country: "",
-    state: "",
-    city: "",
-    address: "",
-    postal_code: "",
+    phone_number: '',
+    country: '',
+    state: '',
+    city: '',
+    address: '',
+    postal_code: '',
     avatar: null,
-    avatar_url: "",
+    avatar_url: '',
   });
 
   React.useEffect(() => {
@@ -39,8 +39,8 @@ const CreateForm = () => {
     if (mounted) {
       dispatch(
         allActions.all({
-          url: "/api/v1/default/",
-          method: "get",
+          url: '/api/v1/default/',
+          method: 'get',
           status: 200,
           json: true,
           auth: false,
@@ -55,24 +55,24 @@ const CreateForm = () => {
     if (defaults.reset) {
       setState({
         ...state,
-        first_name: "",
-        last_name: "",
-        username: "",
-        email: "",
-        gender: "",
-        genderId: "",
+        first_name: '',
+        last_name: '',
+        username: '',
+        email: '',
+        gender: '',
+        genderId: '',
         genderDropdown: false,
-        type: "",
-        typeId: "",
+        type: '',
+        typeId: '',
         typeDropdown: false,
-        phone_number: "",
-        country: "",
-        state: "",
-        city: "",
-        address: "",
-        postal_code: "",
+        phone_number: '',
+        country: '',
+        state: '',
+        city: '',
+        address: '',
+        postal_code: '',
         avatar: null,
-        avatar_url: "",
+        avatar_url: '',
       });
     }
   }, [defaults.reset]);
@@ -110,19 +110,19 @@ const CreateForm = () => {
     context: string
   ) => {
     switch (context) {
-      case "first_name":
+      case 'first_name':
         setState({
           ...state,
           first_name: args.currentTarget.value,
         });
         break;
-      case "last_name":
+      case 'last_name':
         setState({
           ...state,
           last_name: args.currentTarget.value,
         });
         break;
-      case "gender":
+      case 'gender':
         const gender = selector.default.default.gender.filter(
           (x) => x.name.indexOf(args.currentTarget.value) > -1
         )[0];
@@ -137,10 +137,10 @@ const CreateForm = () => {
           gender: args.currentTarget.value,
           genderDropdown:
             args.currentTarget.value.length >= 1 ? is_done : false,
-          genderId: gender ? gender.id : "0",
+          genderId: gender ? gender.id : '0',
         });
         break;
-      case "type":
+      case 'type':
         const type = selector.default.default.employe.filter(
           (x) => x.name.indexOf(args.currentTarget.value) > -1
         )[0];
@@ -154,52 +154,52 @@ const CreateForm = () => {
           ...state,
           type: args.currentTarget.value,
           typeDropdown: args.currentTarget.value.length >= 1 ? done : false,
-          typeId: type ? type.id : "0",
+          typeId: type ? type.id : '0',
         });
         break;
-      case "phone_number":
+      case 'phone_number':
         setState({
           ...state,
           phone_number: args.currentTarget.value,
         });
         break;
-      case "username":
+      case 'username':
         setState({
           ...state,
           username: args.currentTarget.value,
         });
         break;
-      case "email":
+      case 'email':
         setState({
           ...state,
           email: args.currentTarget.value,
         });
         break;
-      case "country":
+      case 'country':
         setState({
           ...state,
           country: args.currentTarget.value,
         });
         break;
-      case "state":
+      case 'state':
         setState({
           ...state,
           state: args.currentTarget.value,
         });
         break;
-      case "city":
+      case 'city':
         setState({
           ...state,
           city: args.currentTarget.value,
         });
         break;
-      case "address":
+      case 'address':
         setState({
           ...state,
           address: args.currentTarget.value,
         });
         break;
-      case "postal_code":
+      case 'postal_code':
         setState({
           ...state,
           postal_code: args.currentTarget.value,
@@ -219,56 +219,56 @@ const CreateForm = () => {
         selector.user.data.accounts.public_id;
     }
     const data = new FormData();
-    data.append("username", state.username);
-    data.append("email", state.email);
-    data.append("first_name", state.first_name);
-    data.append("last_name", state.last_name);
-    data.append("gender", state.genderId);
-    data.append("type", state.typeId);
-    data.append("phone", state.phone_number);
-    data.append("country", state.country);
-    data.append("state", state.state);
-    data.append("city", state.city);
-    data.append("address", state.address);
-    data.append("postal_code", state.postal_code);
+    data.append('username', state.username);
+    data.append('email', state.email);
+    data.append('first_name', state.first_name);
+    data.append('last_name', state.last_name);
+    data.append('gender', state.genderId);
+    data.append('type', state.typeId);
+    data.append('phone', state.phone_number);
+    data.append('country', state.country);
+    data.append('state', state.state);
+    data.append('city', state.city);
+    data.append('address', state.address);
+    data.append('postal_code', state.postal_code);
     if (state.avatar) {
-      data.append("avatar", state.avatar);
+      data.append('avatar', state.avatar);
     }
     if (owner) {
-      data.append("types", "employe");
+      data.append('types', 'employe');
     }
 
     allDispatch.defaultDispatch(
       dispatch,
       {
-        message: "",
+        message: '',
         valid: 0,
         color: 0,
         loading: true,
       },
-      "message"
+      'message'
     );
     dispatch(
       allActions.all({
         url: defaults.drawer.update
           ? !owner
-            ? "/api/v1/user/updated/accounts/"
+            ? '/api/v1/user/updated/accounts/'
             : `/api/v1/user/updated/accounts/employe/${defaults.drawer.context.accounts.public_id}/`
-          : "/api/v1/user/updated/accounts/",
+          : '/api/v1/user/updated/accounts/',
         dataForm: data,
         status: 200,
         json: false,
         auth: true,
-        method: "post",
+        method: 'post',
         type: {
           name: selector.default.drawer.record
-            ? "add_employe"
+            ? 'add_employe'
             : !owner
-            ? "updated_accounts"
-            : "update_employe",
+            ? 'updated_accounts'
+            : 'update_employe',
           value: selector.default.drawer.context
             ? selector.default.drawer.context.accounts.public_id
-            : "",
+            : '',
         },
       })
     );
@@ -276,7 +276,7 @@ const CreateForm = () => {
 
   const clickSelect = (name: string, id: string, type: string) => {
     switch (type) {
-      case "gender":
+      case 'gender':
         setState({
           ...state,
           gender: name,
@@ -284,7 +284,7 @@ const CreateForm = () => {
           genderDropdown: !state.genderDropdown,
         });
         break;
-      case "type":
+      case 'type':
         setState({
           ...state,
           type: name,
@@ -292,7 +292,7 @@ const CreateForm = () => {
           typeDropdown: !state.typeDropdown,
         });
         break;
-      case "gender":
+      case 'gender':
         break;
 
       default:
@@ -333,7 +333,7 @@ const CreateForm = () => {
             </div>
           </div>
           <div className="title">
-            <span>Allowed *.jpeg, *.jpg, *.png, *.gif</span>{" "}
+            <span>Allowed *.jpeg, *.jpg, *.png, *.gif</span>{' '}
             <span>max size of 3.1 MB</span>
           </div>
         </div>
@@ -351,7 +351,7 @@ const CreateForm = () => {
                 autoComplete="off"
                 readOnly={selector.default.message.loading}
                 value={state.username}
-                onChange={(args) => change(args, "username")}
+                onChange={(args) => change(args, 'username')}
                 required
               />
             </div>
@@ -365,7 +365,7 @@ const CreateForm = () => {
                 autoComplete="off"
                 readOnly={selector.default.message.loading}
                 value={state.email}
-                onChange={(args) => change(args, "email")}
+                onChange={(args) => change(args, 'email')}
                 required
               />
             </div>
@@ -381,7 +381,7 @@ const CreateForm = () => {
                 autoComplete="off"
                 readOnly={selector.default.message.loading}
                 value={state.first_name}
-                onChange={(args) => change(args, "first_name")}
+                onChange={(args) => change(args, 'first_name')}
                 required
               />
             </div>
@@ -395,7 +395,7 @@ const CreateForm = () => {
                 autoComplete="off"
                 readOnly={selector.default.message.loading}
                 value={state.last_name}
-                onChange={(args) => change(args, "last_name")}
+                onChange={(args) => change(args, 'last_name')}
                 required
               />
             </div>
@@ -412,14 +412,14 @@ const CreateForm = () => {
                   autoComplete="off"
                   readOnly={selector.default.message.loading}
                   value={state.gender}
-                  onChange={(args) => change(args, "gender")}
+                  onChange={(args) => change(args, 'gender')}
                   required
                 />
                 <div className="box">
                   <Icons src={down} className="icons" />
                 </div>
               </div>
-              <div className={state.genderDropdown ? "dropdown" : "hidden"}>
+              <div className={state.genderDropdown ? 'dropdown' : 'hidden'}>
                 <div className="dropdown-list">
                   {_.map(selector.default.default.gender, (base, index) => {
                     return (
@@ -430,7 +430,7 @@ const CreateForm = () => {
                           base,
                           base.name,
                           base.id,
-                          "gender"
+                          'gender'
                         )}
                       >
                         {base.name}
@@ -451,14 +451,14 @@ const CreateForm = () => {
                   autoComplete="off"
                   readOnly={selector.default.message.loading}
                   value={state.type}
-                  onChange={(args) => change(args, "type")}
+                  onChange={(args) => change(args, 'type')}
                   required
                 />
                 <div className="box">
                   <Icons src={down} className="icons" />
                 </div>
               </div>
-              <div className={state.typeDropdown ? "dropdown" : "hidden"}>
+              <div className={state.typeDropdown ? 'dropdown' : 'hidden'}>
                 <div className="dropdown-list">
                   {_.map(selector.default.default.employe, (base, index) => {
                     return (
@@ -469,7 +469,7 @@ const CreateForm = () => {
                           base,
                           base.name,
                           base.id,
-                          "type"
+                          'type'
                         )}
                       >
                         {base.name}
@@ -491,7 +491,7 @@ const CreateForm = () => {
                 autoComplete="off"
                 readOnly={selector.default.message.loading}
                 value={state.phone_number}
-                onChange={(args) => change(args, "phone_number")}
+                onChange={(args) => change(args, 'phone_number')}
                 required
               />
             </div>
@@ -505,7 +505,7 @@ const CreateForm = () => {
                 autoComplete="off"
                 readOnly={selector.default.message.loading}
                 value={state.country}
-                onChange={(args) => change(args, "country")}
+                onChange={(args) => change(args, 'country')}
                 required
               />
             </div>
@@ -521,7 +521,7 @@ const CreateForm = () => {
                 autoComplete="off"
                 readOnly={selector.default.message.loading}
                 value={state.state}
-                onChange={(args) => change(args, "state")}
+                onChange={(args) => change(args, 'state')}
                 required
               />
             </div>
@@ -535,7 +535,7 @@ const CreateForm = () => {
                 autoComplete="off"
                 readOnly={selector.default.message.loading}
                 value={state.city}
-                onChange={(args) => change(args, "city")}
+                onChange={(args) => change(args, 'city')}
                 required
               />
             </div>
@@ -551,7 +551,7 @@ const CreateForm = () => {
                 autoComplete="off"
                 readOnly={selector.default.message.loading}
                 value={state.address}
-                onChange={(args) => change(args, "address")}
+                onChange={(args) => change(args, 'address')}
                 required
               />
             </div>
@@ -565,7 +565,7 @@ const CreateForm = () => {
                 autoComplete="off"
                 readOnly={selector.default.message.loading}
                 value={state.postal_code}
-                onChange={(args) => change(args, "postal_code")}
+                onChange={(args) => change(args, 'postal_code')}
                 required
               />
             </div>
@@ -579,8 +579,8 @@ const CreateForm = () => {
           </div>
           <div className="field" id="field-button">
             <button
-              type={selector.default.message.loading ? "button" : "submit"}
-              id={selector.default.message.loading ? "loading" : ""}
+              type={selector.default.message.loading ? 'button' : 'submit'}
+              id={selector.default.message.loading ? 'loading' : ''}
             >
               <span>Save Changes</span>
               {selector.default.message.loading ? (

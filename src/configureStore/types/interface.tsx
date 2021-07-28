@@ -143,6 +143,7 @@ export interface ProductPaginationState {
   count: number;
   next: string;
   previous: string;
+  soft: Product[];
 }
 
 export interface CategoryPaginationState {
@@ -150,6 +151,7 @@ export interface CategoryPaginationState {
   count: number;
   next: string;
   previous: string;
+  soft: Category[];
 }
 
 export interface ProductState {

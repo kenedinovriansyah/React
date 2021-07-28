@@ -68,11 +68,32 @@ $text: rgba(49, 53, 59, 0.68);
     border-radius: 10px;
     height: 46px;
     max-width: 400px;
-
+    input {
+      width: 80%;
+    }
     .icons {
       width: 20px;
       height: 20px;
       margin: 0px 0px 0px 15px;
+    }
+    button {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $white;
+      box-shadow: $boxshadow-pedia;
+      -webkit-box-shadow: $boxshadow-pedia;
+      -moz-box-shadow: $boxshadow-pedia;
+      border-radius: 10px;
+      padding: 0px;
+      .icons {
+        width: 20px;
+        height: 20px;
+        margin: 0px;
+        fill: $color;
+      }
     }
   }
   .app-navbar-avatar {

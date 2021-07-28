@@ -595,9 +595,19 @@ export const ColsRightContextApp = () => {
                   </div>
                 </div>
                 <InfiniteScroll
-                  dataLength={select.product.results.length}
-                  next={fetchData}
-                  hasMore={select.product.next ? true : false}
+                  dataLength={
+                    select.product.soft
+                      ? select.product.soft.length
+                      : select.product.results.length
+                  }
+                  next={select.product.soft ? null : fetchData}
+                  hasMore={
+                    select.product.next
+                      ? select.product.soft
+                        ? false
+                        : true
+                      : false
+                  }
                   loader={
                     <div className="loading-product">
                       <div className="cp-spinner cp-boxes"></div>{' '}
@@ -608,45 +618,50 @@ export const ColsRightContextApp = () => {
                   pullDownToRefreshContent={<div>Pull Refresh</div>}
                   className="lists"
                 >
-                  {_.map(select.product.results, (base, index) => {
-                    return (
-                      <div className="card-product" key={index}>
-                        <div className="card-product-image">
-                          <img
-                            src="https://www.tradeys.com.au/wp-content/uploads/2019/05/sb312158.png"
-                            alt=""
-                          />
-                          <div className="group-absolute">
-                            <button>
-                              <Icons src={edit} className="icons" />
-                            </button>
-                            <button>
-                              <Icons src={trash} className="icons" />
-                            </button>
+                  {_.map(
+                    select.product.soft
+                      ? select.product.soft
+                      : select.product.results,
+                    (base, index) => {
+                      return (
+                        <div className="card-product" key={index}>
+                          <div className="card-product-image">
+                            <img
+                              src="https://www.tradeys.com.au/wp-content/uploads/2019/05/sb312158.png"
+                              alt=""
+                            />
+                            <div className="group-absolute">
+                              <button>
+                                <Icons src={edit} className="icons" />
+                              </button>
+                              <button>
+                                <Icons src={trash} className="icons" />
+                              </button>
+                            </div>
+                          </div>
+                          <div className="card-product-body">
+                            <div className="card-product-author">
+                              <div className="card-product-avatar">
+                                <img src={base.author.avatar} alt="" />
+                              </div>
+                              <span>{base.author.user.first_name}</span>
+                            </div>
+                            <h2 className="name">{base.name}</h2>
+                            <div className="group">
+                              <div className="group-color">
+                                <div className="border-color"></div>
+                                <div className="border-color"></div>
+                                <span>+5</span>
+                              </div>
+                              <span className="price">
+                                {base.currency.price_currency}
+                              </span>
+                            </div>
                           </div>
                         </div>
-                        <div className="card-product-body">
-                          <div className="card-product-author">
-                            <div className="card-product-avatar">
-                              <img src={base.author.avatar} alt="" />
-                            </div>
-                            <span>{base.author.user.first_name}</span>
-                          </div>
-                          <h2 className="name">{base.name}</h2>
-                          <div className="group">
-                            <div className="group-color">
-                              <div className="border-color"></div>
-                              <div className="border-color"></div>
-                              <span>+5</span>
-                            </div>
-                            <span className="price">
-                              {base.currency.price_currency}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    }
+                  )}
                 </InfiniteScroll>
                 <div className="paginations"></div>
               </div>

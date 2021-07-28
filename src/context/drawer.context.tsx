@@ -1,7 +1,7 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
-import { allDispatch } from "../configureStore/extensions/dispatch";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { allDispatch } from '../configureStore/extensions/dispatch';
 
 interface ContextProps {
   open: number;
@@ -12,7 +12,7 @@ export const DrawerContextApp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const click = (name: string, params: string) => {
-    allDispatch.defaultDispatch(dispatch, 2, "drawer");
+    allDispatch.defaultDispatch(dispatch, 2, 'drawer');
     setTimeout(() => {
       if (params) {
         history.push(`${name}${params}`);
@@ -27,7 +27,7 @@ export const DrawerContextApp = () => {
         return (
           <div
             className={
-              open === 1 ? "drawer" : open === 2 ? "drawer-close" : "hidden"
+              open === 1 ? 'drawer' : open === 2 ? 'drawer-close' : 'hidden'
             }
           >
             <div className="drawer-block"></div>
@@ -52,7 +52,7 @@ export const DrawerContextApp = () => {
               <div className="button-app">
                 <button
                   className="go"
-                  onClick={click.bind("", "/loading/", "access-login")}
+                  onClick={click.bind('', '/loading/', 'access-login')}
                 >
                   <span>go to application</span>
                   <i className="fas fa-arrow-right"></i>

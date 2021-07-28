@@ -1,36 +1,36 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { ApplicationState } from "../configureStore";
-import { allActions } from "../configureStore/actions/all.actions";
-import { allDispatch } from "../configureStore/extensions/dispatch";
-import "./static/login.scss";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { ApplicationState } from '../configureStore';
+import { allActions } from '../configureStore/actions/all.actions';
+import { allDispatch } from '../configureStore/extensions/dispatch';
+import './static/login.scss';
 
 const LoginScreen = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const selector = useSelector((state: ApplicationState) => state.default);
-  const [state, setState] = React.useState({ username: "", password: "" });
+  const [state, setState] = React.useState({ username: '', password: '' });
   React.useEffect(() => {
     if (selector.reset) {
       setState({
         ...state,
-        username: "",
-        password: "",
+        username: '',
+        password: '',
       });
-      allDispatch.defaultDispatch(dispatch, false, "reset");
+      allDispatch.defaultDispatch(dispatch, false, 'reset');
     }
   }, [selector.reset]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
     switch (type) {
-      case "username":
+      case 'username':
         setState({
           ...state,
           username: e.currentTarget.value,
         });
         break;
-      case "password":
+      case 'password':
         setState({
           ...state,
           password: e.currentTarget.value,
@@ -46,21 +46,21 @@ const LoginScreen = () => {
     allDispatch.defaultDispatch(
       dispatch,
       {
-        message: "",
+        message: '',
         valid: 0,
         color: 0,
         loading: true,
       },
-      "message"
+      'message'
     );
     dispatch(
       allActions.all({
-        url: "/api-token-auth/",
+        url: '/api-token-auth/',
         data: state,
         status: 200,
         json: true,
         auth: false,
-        method: "post",
+        method: 'post',
       })
     );
   };
@@ -88,7 +88,7 @@ const LoginScreen = () => {
               autoComplete="off"
               value={state.username}
               readOnly={selector.message.loading}
-              onChange={(args) => onChange(args, "username")}
+              onChange={(args) => onChange(args, 'username')}
             />
           </div>
         </div>
@@ -103,19 +103,19 @@ const LoginScreen = () => {
               placeholder="Password"
               readOnly={selector.message.loading}
               value={state.password}
-              onChange={(args) => onChange(args, "password")}
+              onChange={(args) => onChange(args, 'password')}
             />
           </div>
         </div>
         <div className="field" id="field-button">
           <button
-            type={selector.message.loading ? "button" : "submit"}
-            id={selector.message.loading ? "loading" : ""}
+            type={selector.message.loading ? 'button' : 'submit'}
+            id={selector.message.loading ? 'loading' : ''}
           >
             <span>Sign in</span>
             {selector.message.loading ? <div className="spin"></div> : null}
           </button>
-          <a onClick={click.bind("", "/loading/", "access-reset-accounts")}>
+          <a onClick={click.bind('', '/loading/', 'access-reset-accounts')}>
             Forgot Password ?
           </a>
         </div>

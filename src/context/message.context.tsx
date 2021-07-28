@@ -1,12 +1,12 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { allDispatch } from "../configureStore/extensions/dispatch";
-import { Message } from "../configureStore/types/interface";
-import "./static/message.scss";
-import minus from "../media/icons/minus.svg";
-import check from "../media/icons/check.svg";
-import close from "../media/icons/close.svg";
-import { Icons } from "../ref/icons";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { allDispatch } from '../configureStore/extensions/dispatch';
+import { Message } from '../configureStore/types/interface';
+import './static/message.scss';
+import minus from '../media/icons/minus.svg';
+import check from '../media/icons/check.svg';
+import close from '../media/icons/close.svg';
+import { Icons } from '../ref/icons';
 
 interface ContextProps {
   context: Message;
@@ -24,7 +24,7 @@ export const MessageContextApp = () => {
         color: color,
         loading: false,
       },
-      "message"
+      'message'
     );
   };
   return (
@@ -34,14 +34,14 @@ export const MessageContextApp = () => {
           <div
             className={
               context.valid === 1
-                ? "message"
+                ? 'message'
                 : context.valid === 2
-                ? "message-close"
-                : "hidden"
+                ? 'message-close'
+                : 'hidden'
             }
           >
             <div className="message-exit">
-              <button onClick={click.bind("", context.message, context.color)}>
+              <button onClick={click.bind('', context.message, context.color)}>
                 <Icons src={minus} className="icons" />
               </button>
             </div>

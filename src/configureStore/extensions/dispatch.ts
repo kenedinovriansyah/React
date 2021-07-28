@@ -114,7 +114,6 @@ class AllDispatch {
           },
         });
         break;
-
       default:
         break;
     }
@@ -147,6 +146,14 @@ class AllDispatch {
           type: ProductType.pull_product,
           payload: {
             data: res.data,
+          },
+        });
+        break;
+      case 'search-product':
+        dispatch({
+          type: ProductType.search_product,
+          payload: {
+            data: res.data.results,
           },
         });
         break;

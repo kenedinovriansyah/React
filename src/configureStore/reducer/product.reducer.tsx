@@ -8,12 +8,14 @@ const initialState: ProductState = {
     results: [],
     next: '',
     previous: '',
+    soft: [],
   },
   category: {
     count: 0,
     results: [],
     next: '',
     previous: '',
+    soft: [],
   },
   dproduct: {},
   dcategory: {},
@@ -100,7 +102,12 @@ export const productReducer: Reducer<ProductState> = (
         ...state,
       };
       break;
-
+    case ProductType.search_product:
+      state.product.soft = action.payload.data;
+      return {
+        ...state,
+      };
+      break;
     default:
       return state;
       break;

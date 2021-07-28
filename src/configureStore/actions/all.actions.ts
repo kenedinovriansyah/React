@@ -14,6 +14,10 @@ export interface ActionsType {
   status: number;
   url: string;
   method: Method;
+  params?: {
+    single?: string;
+    array?: any[];
+  };
   type?: {
     name?: string;
     value?: any;
@@ -127,6 +131,9 @@ class AllActions {
         } else if (pull.filter((x) => x.indexOf(pull_category) > -1)[0]) {
           name_ = 'pull_category';
         }
+        if (context.params) {
+          name_ = 'search-product';
+        }
         allDispatch.productdispatch(dispatch, res, name_);
       } else {
         allDispatch.userdispatch(dispatch, res, name);
@@ -145,10 +152,21 @@ class AllActions {
     }
   }
 
+  public params(context: ActionsType) {
+    let data: any = null;
+    if (context.params) {
+      data = {
+        name: context.params.single,
+      };
+    }
+    return data;
+  }
+
   public all(context: ActionsType) {
     return async (dispatch: Dispatch) => {
       return await axios({
         url: context.url,
+        params: this.params(context),
         data: context.json ? context.data : context.dataForm,
         headers: this.header(context.auth, context.method, context.json),
         method: context.method,

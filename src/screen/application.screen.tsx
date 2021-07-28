@@ -10,6 +10,7 @@ import { ColsRightContext, ColsRightContextApp } from '../context/cols.right';
 import { User } from '../configureStore/types/interface';
 import { Icons } from '../ref/icons';
 import search from '../media/icons/magnifying-glass-search.svg';
+import searchP from '../media/icons/product.svg';
 
 const ApplicationScreen = () => {
   const selector = useSelector((state: ApplicationState) => state.default);
@@ -62,7 +63,20 @@ const ApplicationScreen = () => {
           'search-user'
         );
         break;
-
+      case 'shop':
+        dispatch(
+          allActions.all({
+            url: '/api/v1/product/all/',
+            status: 200,
+            method: 'get',
+            json: true,
+            auth: false,
+            params: {
+              single: args.currentTarget.value,
+            },
+          })
+        );
+        break;
       default:
         break;
     }
@@ -107,7 +121,9 @@ const ApplicationScreen = () => {
           <div className="app-cols">
             <div className="app-navbar">
               <div className="field" id="field-input">
-                <Icons src={search} className="icons" />
+                {selector.drawer.page !== 'm-ecommerce' ? (
+                  <Icons src={search} className="icons" />
+                ) : null}
                 <input
                   type="text"
                   name="search"
@@ -118,6 +134,11 @@ const ApplicationScreen = () => {
                   onChange={change}
                   value={state}
                 />
+                {selector.drawer.page === 'm-ecommerce' ? (
+                  <button>
+                    <Icons src={searchP} className="icons" />
+                  </button>
+                ) : null}
               </div>
               <div className="group">
                 <div className="app-navbar-avatar">

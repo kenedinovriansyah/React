@@ -1,15 +1,15 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { ApplicationState } from "../configureStore";
-import { allActions } from "../configureStore/actions/all.actions";
-import { allDispatch } from "../configureStore/extensions/dispatch";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { ApplicationState } from '../configureStore';
+import { allActions } from '../configureStore/actions/all.actions';
+import { allDispatch } from '../configureStore/extensions/dispatch';
 
 const ResetScreen = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const selector = useSelector((state: ApplicationState) => state.default);
-  const [state, setState] = React.useState({ token: "" });
+  const [state, setState] = React.useState({ token: '' });
   const onChange = (args: React.ChangeEvent<HTMLInputElement>) => {
     setState({
       ...state,
@@ -20,23 +20,23 @@ const ResetScreen = () => {
     args.preventDefault();
     const data = {
       token: state.token,
-      type: "reset",
+      type: 'reset',
     };
     allDispatch.defaultDispatch(
       dispatch,
       {
-        message: "",
+        message: '',
         valid: 0,
         color: 0,
         loading: true,
       },
-      "message"
+      'message'
     );
     dispatch(
       allActions.all({
-        url: "/api/v1/user/",
+        url: '/api/v1/user/',
         data: data,
-        method: "post",
+        method: 'post',
         status: 200,
         auth: false,
         json: true,
@@ -46,9 +46,9 @@ const ResetScreen = () => {
 
   React.useEffect(() => {
     if (selector.reset) {
-      state.token = "";
-      history.push("/access-login");
-      allDispatch.defaultDispatch(dispatch, false, "reset");
+      state.token = '';
+      history.push('/access-login');
+      allDispatch.defaultDispatch(dispatch, false, 'reset');
     }
   }, [selector.reset]);
 
@@ -80,8 +80,8 @@ const ResetScreen = () => {
         </div>
         <div className="field" id="field-button">
           <button
-            type={selector.message.loading ? "button" : "submit"}
-            id={selector.message.loading ? "loading" : ""}
+            type={selector.message.loading ? 'button' : 'submit'}
+            id={selector.message.loading ? 'loading' : ''}
           >
             <span>Reset</span>
             {selector.message.loading ? <div className="spin"></div> : null}

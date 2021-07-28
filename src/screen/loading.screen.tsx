@@ -1,8 +1,8 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { useHistory, useParams } from "react-router";
-import { allDispatch } from "../configureStore/extensions/dispatch";
-import "./static/loading.scss";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory, useParams } from 'react-router';
+import { allDispatch } from '../configureStore/extensions/dispatch';
+import './static/loading.scss';
 
 const LoadingScreen = () => {
   const history = useHistory();
@@ -11,14 +11,14 @@ const LoadingScreen = () => {
   React.useEffect(() => {
     let mounted = true;
     if (mounted) {
-      localStorage.setItem("active", "true");
-      allDispatch.defaultDispatch(dispatch, true, "hidden");
+      localStorage.setItem('active', 'true');
+      allDispatch.defaultDispatch(dispatch, true, 'hidden');
       setTimeout(() => {
-        if (params.name === "home") {
+        if (params.name === 'home') {
           history.push(`/`);
-          allDispatch.defaultDispatch(dispatch, false, "hidden");
+          allDispatch.defaultDispatch(dispatch, false, 'hidden');
         } else {
-          allDispatch.defaultDispatch(dispatch, false, "hidden");
+          allDispatch.defaultDispatch(dispatch, false, 'hidden');
 
           history.push(`/${params.name}`);
         }

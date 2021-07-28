@@ -1,6 +1,6 @@
-import { Reducer } from "redux";
-import { UserTypes } from "../types/enum";
-import { User, UserState } from "../types/interface";
+import { Reducer } from 'redux';
+import { UserTypes } from '../types/enum';
+import { User, UserState } from '../types/interface';
 
 const initialState: UserState = {
   user: [],
@@ -54,7 +54,7 @@ export const userReducer: Reducer<UserState> = (
       break;
     case UserTypes.sort_employe:
       switch (action.payload.data) {
-        case "A-z":
+        case 'A-z':
           state.data.accounts.employe = state.data.accounts.employe.sort(
             function (a, b) {
               if (a.first_name < b.first_name) {
@@ -63,7 +63,7 @@ export const userReducer: Reducer<UserState> = (
             }
           );
           break;
-        case "Z-a":
+        case 'Z-a':
           state.data.accounts.employe = state.data.accounts.employe.sort(
             function (a, b) {
               if (a.first_name > b.first_name) {
@@ -72,19 +72,19 @@ export const userReducer: Reducer<UserState> = (
             }
           );
           break;
-        case "Member":
+        case 'Member':
           state.data.accounts.employe = state.data.accounts.employe.sort(
             function (a, b) {
-              if (a.accounts.type.name === "Member") {
+              if (a.accounts.type.name === 'Member') {
                 return -1;
               }
             }
           );
           break;
-        case "Employe":
+        case 'Employe':
           state.data.accounts.employe = state.data.accounts.employe.sort(
             function (a, b) {
-              if (a.accounts.type.name === "Staff") {
+              if (a.accounts.type.name === 'Staff') {
                 return -1;
               }
             }

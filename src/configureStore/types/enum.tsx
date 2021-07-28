@@ -30,6 +30,6 @@ export enum ProductType {
   put_product = '@@product/put_product',
   pull_product = '@@product/pull_product',
   pull_category = '@@product/pull_category',
-  loading_product = '@@product/loading_product',
-  loading_category = '@@product/loading_category',
+  search_product = '@@product/search_product',
+  search_category = '@@product/search_category',
 }
