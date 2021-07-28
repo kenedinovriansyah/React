@@ -1,37 +1,37 @@
-import React from "react";
-import { Icons } from "../../ref/icons";
-import user from "../../media/icons/user.svg";
-import email from "../../media/icons/email (1).svg";
-import anaytics from "../../media/icons/analytics.svg";
-import chat from "../../media/icons/chat.svg";
-import schedule from "../../media/icons/schedule.svg";
-import shop from "../../media/icons/shop.svg";
-import monitor from "../../media/icons/imac.svg";
-import app from "../../media/icons/app.svg";
-import right from "../../media/icons/right-chevron.svg";
-import down from "../../media/icons/chevron-arrow-down.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { ApplicationState } from "../../configureStore";
-import { allDispatch } from "../../configureStore/extensions/dispatch";
+import React from 'react';
+import { Icons } from '../../ref/icons';
+import user from '../../media/icons/user.svg';
+import email from '../../media/icons/email (1).svg';
+import anaytics from '../../media/icons/analytics.svg';
+import chat from '../../media/icons/chat.svg';
+import schedule from '../../media/icons/schedule.svg';
+import shop from '../../media/icons/shop.svg';
+import monitor from '../../media/icons/imac.svg';
+import app from '../../media/icons/app.svg';
+import right from '../../media/icons/right-chevron.svg';
+import down from '../../media/icons/chevron-arrow-down.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { ApplicationState } from '../../configureStore';
+import { allDispatch } from '../../configureStore/extensions/dispatch';
 
 const LeftCols = () => {
   const selector = useSelector((state: ApplicationState) => state.default);
   const dispatch = useDispatch();
   const click = (name: string, type: string, title: string, link: any[]) => {
     switch (type) {
-      case "page-with-child":
+      case 'page-with-child':
         allDispatch.defaultDispatch(
           dispatch,
           {
             active: 0,
-            page: selector.drawer.page === name ? "" : name,
+            page: selector.drawer.page === name ? '' : name,
             title: title,
             breadcrumbs: link,
           },
-          "drawer"
+          'drawer'
         );
         break;
-      case "child-page":
+      case 'child-page':
         allDispatch.defaultDispatch(
           dispatch,
           {
@@ -42,7 +42,7 @@ const LeftCols = () => {
             child_page: name,
             record: true,
           },
-          "drawer"
+          'drawer'
         );
         break;
       default:
@@ -61,7 +61,7 @@ const LeftCols = () => {
         <div className="app-list-title">
           <div className="title">General</div>
         </div>
-        <a href="" className={selector.drawer.page === "app" ? "active" : ""}>
+        <a href="" className={selector.drawer.page === 'app' ? 'active' : ''}>
           <div className="group">
             <Icons src={app} className="icons" />
             <span>App</span>
@@ -69,7 +69,7 @@ const LeftCols = () => {
         </a>
         <a
           href=""
-          className={selector.drawer.page === "e-commerce" ? "active" : ""}
+          className={selector.drawer.page === 'e-commerce' ? 'active' : ''}
         >
           <div className="group">
             <Icons src={shop} className="icons" />
@@ -78,7 +78,7 @@ const LeftCols = () => {
         </a>
         <a
           href=""
-          className={selector.drawer.page === "analytics" ? "active" : ""}
+          className={selector.drawer.page === 'analytics' ? 'active' : ''}
         >
           <div className="group">
             <Icons src={anaytics} className="icons" />
@@ -90,22 +90,22 @@ const LeftCols = () => {
         </div>
         <div className="app-sub-list">
           <a
-            onClick={click.bind("", "user", "page-with-child")}
-            className={selector.drawer.page === "user" ? "active" : ""}
+            onClick={click.bind('', 'user', 'page-with-child')}
+            className={selector.drawer.page === 'user' ? 'active' : ''}
           >
             <div className="group">
               <Icons src={user} className="icons" />
               <span>User</span>
             </div>
             <Icons
-              src={selector.drawer.page === "user" ? down : right}
+              src={selector.drawer.page === 'user' ? down : right}
               className="icons"
               id="right"
             />
           </a>
           <a
             className={
-              selector.drawer.page === "user" ? "a-active" : "a-unactive"
+              selector.drawer.page === 'user' ? 'a-active' : 'a-unactive'
             }
             href=""
           >
@@ -113,78 +113,75 @@ const LeftCols = () => {
           </a>
           <a
             className={
-              selector.drawer.page === "user" ? "a-active" : "a-unactive"
+              selector.drawer.page === 'user' ? 'a-active' : 'a-unactive'
             }
-            href=""
+            href="#"
+            onClick={click.bind('', 'card', 'child-page', 'User Cards', [
+              'Dashboard',
+              'User',
+              'Cards',
+            ])}
           >
             Crads
           </a>
           <a
             className={
-              selector.drawer.page === "user" ? "a-active" : "a-unactive"
+              selector.drawer.page === 'user' ? 'a-active' : 'a-unactive'
             }
             href="#"
-            onClick={click.bind("", "list", "child-page", "User List", [
-              "Dashboard",
-              "User",
-              "List",
+            onClick={click.bind('', 'list', 'child-page', 'User List', [
+              'Dashboard',
+              'User',
+              'List',
             ])}
           >
             List
           </a>
           <a
             className={
-              selector.drawer.page === "user" ? "a-active" : "a-unactive"
+              selector.drawer.page === 'user' ? 'a-active' : 'a-unactive'
             }
             href="#"
             onClick={click.bind(
-              "",
-              "create",
-              "child-page",
-              "Create a new user",
-              ["Dashboard", "User", "New User"]
+              '',
+              'create',
+              'child-page',
+              'Create a new user',
+              ['Dashboard', 'User', 'New User']
             )}
           >
             Create
           </a>
           <a
             className={
-              selector.drawer.page === "user" ? "a-active" : "a-unactive"
+              selector.drawer.page === 'user' ? 'a-active' : 'a-unactive'
             }
             href="#"
-          >
-            Edit
-          </a>
-          <a
-            className={
-              selector.drawer.page === "user" ? "a-active" : "a-unactive"
-            }
-            href="#"
-            onClick={click.bind("", "accounts", "child-page", "Account", [
-              "Dashboard",
-              "User",
-              "Accounts Settings",
+            onClick={click.bind('', 'accounts', 'child-page', 'Account', [
+              'Dashboard',
+              'User',
+              'Accounts Settings',
             ])}
           >
             Accounts
           </a>
           <a
-            onClick={click.bind("", "m-ecommerce", "page-with-child")}
-            className={selector.drawer.page === "m-ecommerce" ? "active" : ""}
+            onClick={click.bind('', 'm-ecommerce', 'page-with-child')}
+            className={selector.drawer.page === 'm-ecommerce' ? 'active' : ''}
           >
             <div className="group">
               <Icons src={shop} className="icons" />
               <span>E-commerce</span>
             </div>
             <Icons
-              src={selector.drawer.page === "m-ecommerce" ? down : right}
+              src={selector.drawer.page === 'm-ecommerce' ? down : right}
               className="icons"
               id="right"
             />
           </a>
           <a
             className={
-              selector.drawer.page === "m-ecommerce" ? "a-active" : "a-unactive"
+              selector.drawer.page === 'm-ecommerce' ? 'a-active' : 'a-unactive'
             }
             href=""
           >
@@ -192,7 +189,7 @@ const LeftCols = () => {
           </a>
           <a
             className={
-              selector.drawer.page === "m-ecommerce" ? "a-active" : "a-unactive"
+              selector.drawer.page === 'm-ecommerce' ? 'a-active' : 'a-unactive'
             }
             href=""
           >
@@ -200,7 +197,7 @@ const LeftCols = () => {
           </a>
           <a
             className={
-              selector.drawer.page === "m-ecommerce" ? "a-active" : "a-unactive"
+              selector.drawer.page === 'm-ecommerce' ? 'a-active' : 'a-unactive'
             }
             href=""
           >
@@ -208,7 +205,7 @@ const LeftCols = () => {
           </a>
           <a
             className={
-              selector.drawer.page === "m-ecommerce" ? "a-active" : "a-unactive"
+              selector.drawer.page === 'm-ecommerce' ? 'a-active' : 'a-unactive'
             }
             href=""
           >
@@ -216,7 +213,7 @@ const LeftCols = () => {
           </a>
           <a
             className={
-              selector.drawer.page === "m-ecommerce" ? "a-active" : "a-unactive"
+              selector.drawer.page === 'm-ecommerce' ? 'a-active' : 'a-unactive'
             }
             href=""
           >
@@ -224,7 +221,7 @@ const LeftCols = () => {
           </a>
           <a
             className={
-              selector.drawer.page === "m-ecommerce" ? "a-active" : "a-unactive"
+              selector.drawer.page === 'm-ecommerce' ? 'a-active' : 'a-unactive'
             }
             href=""
           >
@@ -234,13 +231,13 @@ const LeftCols = () => {
         <div className="app-list-title">
           <div className="title">app</div>
         </div>
-        <a href="" className={selector.drawer.page === "mail" ? "active" : ""}>
+        <a href="" className={selector.drawer.page === 'mail' ? 'active' : ''}>
           <div className="group">
             <Icons src={email} className="icons" />
             <span>Mail</span>
           </div>
         </a>
-        <a href="" className={selector.drawer.page === "chat" ? "active" : ""}>
+        <a href="" className={selector.drawer.page === 'chat' ? 'active' : ''}>
           <div className="group">
             <Icons src={chat} className="icons" />
             <span>Chat</span>
@@ -248,7 +245,7 @@ const LeftCols = () => {
         </a>
         <a
           href=""
-          className={selector.drawer.page === "calendar" ? "active" : ""}
+          className={selector.drawer.page === 'calendar' ? 'active' : ''}
         >
           <div className="group">
             <Icons src={schedule} className="icons" />
@@ -257,7 +254,7 @@ const LeftCols = () => {
         </a>
         <a
           href=""
-          className={selector.drawer.page === "kanban" ? "active" : ""}
+          className={selector.drawer.page === 'kanban' ? 'active' : ''}
         >
           <div className="group">
             <Icons src={monitor} className="icons" />

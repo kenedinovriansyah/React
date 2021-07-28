@@ -1,17 +1,17 @@
-import { Reducer } from "redux";
-import { DefaultTypes } from "../types/enum";
-import { DefaultState } from "../types/interface";
+import { Reducer } from 'redux';
+import { DefaultTypes } from '../types/enum';
+import { DefaultState } from '../types/interface';
 
 const initialState: DefaultState = {
   hidden: false,
   loading: false,
   drawer: {
     active: 0,
-    page: "user",
-    child_page: "card",
-    parent_page: "",
-    title: "User Cards",
-    breadcrumbs: ["Dashboard", "User", "Cards"],
+    page: 'm-ecommerce',
+    child_page: 'shop',
+    parent_page: '',
+    title: 'Shop',
+    breadcrumbs: ['Dashboard', 'E-commerce', 'Shop'],
     update: false,
     context: {},
     record: false,
@@ -21,9 +21,9 @@ const initialState: DefaultState = {
     gender: [],
   },
   reset: false,
-  token: "",
+  token: '',
   message: {
-    message: "",
+    message: '',
     loading: false,
     color: 0,
     valid: 0,

@@ -1,19 +1,20 @@
-import React from "react";
-import { Drawer, User } from "../configureStore/types/interface";
-import _ from "lodash";
-import { AccountsContext, AccountsContextApp } from "./accounts.context";
-import { Icons } from "../ref/icons";
-import CreateForm from "./applicationForm/create.form";
-import sort from "../media/icons/sort.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { ApplicationState } from "../configureStore";
-import trash from "../media/icons/searching.svg";
-import edit from "../media/icons/edit.svg";
-import trashs from "../media/icons/trash.svg";
-import search from "../media/icons/magnifying-glass-search.svg";
-import { allActions } from "../configureStore/actions/all.actions";
-import { allDispatch } from "../configureStore/extensions/dispatch";
-import ShapeAvatar from "../media/icons/shape-avatar.svg";
+import React from 'react';
+import { Drawer, User } from '../configureStore/types/interface';
+import _ from 'lodash';
+import { AccountsContext, AccountsContextApp } from './accounts.context';
+import { Icons } from '../ref/icons';
+import CreateForm from './applicationForm/create.form';
+import sort from '../media/icons/sort.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { ApplicationState } from '../configureStore';
+import trash from '../media/icons/searching.svg';
+import edit from '../media/icons/edit.svg';
+import trashs from '../media/icons/trash.svg';
+import search from '../media/icons/magnifying-glass-search.svg';
+import { allActions } from '../configureStore/actions/all.actions';
+import { allDispatch } from '../configureStore/extensions/dispatch';
+import ShapeAvatar from '../media/icons/shape-avatar.svg';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 interface ContextProps {
   open: Drawer;
@@ -25,6 +26,7 @@ export interface ColsRightStateActions {
   array: any[];
   filter: any[];
   dropdown: boolean;
+  refresh: boolean;
 }
 
 export const ColsRightContext = React.createContext<Partial<ContextProps>>({});
@@ -35,13 +37,15 @@ export const ColsRightContextApp = () => {
     array: [],
     filter: [],
     dropdown: false,
+    refresh: false,
   });
 
   const selector = useSelector((state: ApplicationState) => state.user);
+  const select = useSelector((state: ApplicationState) => state.product);
 
   const handleClick = (type: string) => {
     switch (type) {
-      case "all":
+      case 'all':
         setState({
           ...state,
           destroyArray: !state.destroyArray,
@@ -56,35 +60,35 @@ export const ColsRightContextApp = () => {
 
   const changePage = (args: User, type: string) => {
     switch (type) {
-      case "updated":
+      case 'updated':
         allDispatch.defaultDispatch(
           dispatch,
           {
             active: 0,
-            page: "user",
-            child_page: "create",
-            title: "Edit User",
-            breadcrumbs: ["Dashboard", "User", "Edit User"],
+            page: 'user',
+            child_page: 'create',
+            title: 'Edit User',
+            breadcrumbs: ['Dashboard', 'User', 'Edit User'],
             update: true,
             context: args,
           },
-          "drawer"
+          'drawer'
         );
         break;
-      case "create":
+      case 'create':
         allDispatch.defaultDispatch(
           dispatch,
           {
-            active: "",
-            page: "user",
-            child_page: "create",
-            title: "Create a User",
-            breadcrumbs: ["Dashboard", "User", "New User"],
+            active: '',
+            page: 'user',
+            child_page: 'create',
+            title: 'Create a User',
+            breadcrumbs: ['Dashboard', 'User', 'New User'],
             update: false,
             context: null,
             record: true,
           },
-          "drawer"
+          'drawer'
         );
         break;
       default:
@@ -127,7 +131,7 @@ export const ColsRightContextApp = () => {
   };
 
   const clickSort = (type: string) => {
-    allDispatch.defaultDispatch(dispatch, type, "sort");
+    allDispatch.defaultDispatch(dispatch, type, 'sort');
     setState({
       ...state,
       dropdown: !state.dropdown,
@@ -147,12 +151,12 @@ export const ColsRightContextApp = () => {
       allActions.all({
         url: `/api/v1/user/${id}`,
         status: 200,
-        method: "delete",
+        method: 'delete',
         json: true,
         auth: true,
         type: {
           value: id,
-          name: "destroy_employe",
+          name: 'destroy_employe',
         },
       })
     );
@@ -168,23 +172,41 @@ export const ColsRightContextApp = () => {
       allActions.all({
         url: `/api/v1/user/acounts/destroy/employe/${data}`,
         status: 200,
-        method: "delete",
+        method: 'delete',
         json: true,
         auth: true,
         type: {
           value: state.array,
-          name: "destroy_employe_many",
+          name: 'destroy_employe_many',
         },
         state,
         stateActions: setState,
       })
     );
   };
+
+  function fetchData() {
+    if (select.product.next) {
+      dispatch(
+        allActions.all({
+          url: select.product.next,
+          status: 200,
+          method: 'get',
+          json: true,
+          auth: true,
+        })
+      );
+    }
+  }
+
+  function refresh() {
+    console.log('refresh');
+  }
   return (
     <ColsRightContext.Consumer>
       {({ open, click }) => {
         switch (open.child_page) {
-          case "accounts":
+          case 'accounts':
             return (
               <>
                 <AccountsContext.Provider
@@ -213,9 +235,9 @@ export const ColsRightContextApp = () => {
                       <a
                         href="#"
                         onClick={click.bind(
-                          "",
-                          "general",
-                          "parent-page",
+                          '',
+                          'general',
+                          'parent-page',
                           selector.data
                         )}
                       >
@@ -232,23 +254,23 @@ export const ColsRightContextApp = () => {
                       <a href="">Social Links</a>
                     </li>
                     <li
-                      className={open.parent_page === "email" ? "active" : ""}
+                      className={open.parent_page === 'email' ? 'active' : ''}
                     >
                       <a
                         href="#"
-                        onClick={click.bind("", "email", "parent-page")}
+                        onClick={click.bind('', 'email', 'parent-page')}
                       >
                         Email Password
                       </a>
                     </li>
                     <li
                       className={
-                        open.parent_page === "password" ? "active" : ""
+                        open.parent_page === 'password' ? 'active' : ''
                       }
                     >
                       <a
                         href="#"
-                        onClick={click.bind("", "password", "parent-page")}
+                        onClick={click.bind('', 'password', 'parent-page')}
                       >
                         Change Password
                       </a>
@@ -259,7 +281,7 @@ export const ColsRightContextApp = () => {
               </>
             );
             break;
-          case "create":
+          case 'create':
             return (
               <div>
                 <div className="headers">
@@ -282,7 +304,7 @@ export const ColsRightContextApp = () => {
               </div>
             );
             break;
-          case "list":
+          case 'list':
             return (
               <div className="app-list">
                 <div className="headers">
@@ -301,7 +323,7 @@ export const ColsRightContextApp = () => {
                         );
                       })}
                     </ul>
-                    <button onClick={changePage.bind("", "", "create")}>
+                    <button onClick={changePage.bind('', '', 'create')}>
                       <span>New User</span>
                     </button>
                   </div>
@@ -309,7 +331,7 @@ export const ColsRightContextApp = () => {
                 <div className="app-table">
                   <div
                     className={
-                      state.array.length >= 1 ? "app-table-destroy" : "hidden"
+                      state.array.length >= 1 ? 'app-table-destroy' : 'hidden'
                     }
                   >
                     <span>{state.array.length} Selected</span>
@@ -338,19 +360,19 @@ export const ColsRightContextApp = () => {
                       />
                       <div
                         className={
-                          state.dropdown ? "filter-dropdown" : "hidden"
+                          state.dropdown ? 'filter-dropdown' : 'hidden'
                         }
                       >
-                        <a href="#" onClick={clickSort.bind("", "A-z")}>
+                        <a href="#" onClick={clickSort.bind('', 'A-z')}>
                           a-Z
                         </a>
-                        <a href="#" onClick={clickSort.bind("", "Z-a")}>
+                        <a href="#" onClick={clickSort.bind('', 'Z-a')}>
                           Z-a
                         </a>
-                        <a href="#" onClick={clickSort.bind("", "Member")}>
+                        <a href="#" onClick={clickSort.bind('', 'Member')}>
                           Member
                         </a>
-                        <a href="#" onClick={clickSort.bind("", "Employe")}>
+                        <a href="#" onClick={clickSort.bind('', 'Employe')}>
                           Staff
                         </a>
                       </div>
@@ -360,8 +382,8 @@ export const ColsRightContextApp = () => {
                     <li id="choice">
                       <div
                         className="box"
-                        id={state.destroyArray ? "active" : ""}
-                        onClick={handleClick.bind("", "all")}
+                        id={state.destroyArray ? 'active' : ''}
+                        onClick={handleClick.bind('', 'all')}
                       >
                         {state.destroyArray ? (
                           <i className="fas fa-check"></i>
@@ -395,8 +417,8 @@ export const ColsRightContextApp = () => {
                                     (x: User) =>
                                       x.first_name.indexOf(base.first_name) > -1
                                   )[0]
-                                    ? "active"
-                                    : ""
+                                    ? 'active'
+                                    : ''
                                 }
                                 onClick={clickAddOrRemove.bind(base, base)}
                               >
@@ -410,22 +432,22 @@ export const ColsRightContextApp = () => {
                             </li>
                             <li className="name">
                               {base.first_name.substr(0, 20)}
-                              {base.first_name.length >= 20 ? " ..." : ""}
+                              {base.first_name.length >= 20 ? ' ...' : ''}
                             </li>
                             <li className="name">
                               {base.last_name.substr(0, 20)}
-                              {base.last_name.length >= 20 ? " ..." : ""}
+                              {base.last_name.length >= 20 ? ' ...' : ''}
                             </li>
                             <li id="gender">
-                              {base.accounts ? base.accounts.name_gender : ""}
+                              {base.accounts ? base.accounts.name_gender : ''}
                             </li>
                             <li id="phone">
                               {base.accounts
                                 ? base.accounts.phone.phone_numbers
-                                : ""}
+                                : ''}
                             </li>
                             <li id="type">
-                              {base.accounts ? base.accounts.type.name : ""}
+                              {base.accounts ? base.accounts.type.name : ''}
                             </li>
                             <li id="options">
                               <div className="group">
@@ -434,7 +456,7 @@ export const ColsRightContextApp = () => {
                                   onClick={changePage.bind(
                                     base,
                                     base,
-                                    "updated"
+                                    'updated'
                                   )}
                                 >
                                   <Icons src={edit} className="icons" />
@@ -459,7 +481,7 @@ export const ColsRightContextApp = () => {
               </div>
             );
             break;
-          case "card":
+          case 'card':
             return (
               <div>
                 <div className="headers">
@@ -528,7 +550,7 @@ export const ColsRightContextApp = () => {
                                 onClick={changePage.bind(
                                   items,
                                   items,
-                                  "updated"
+                                  'updated'
                                 )}
                               >
                                 <Icons className="icons" src={edit} />
@@ -548,6 +570,85 @@ export const ColsRightContextApp = () => {
                     }
                   )}
                 </div>
+              </div>
+            );
+            break;
+          case 'shop':
+            return (
+              <div>
+                <div className="headers">
+                  <div className="title">
+                    <h5>{open.title}</h5>
+                  </div>
+                  <div className="group">
+                    <ul className="location">
+                      {_.map(open.breadcrumbs, (base, index) => {
+                        return (
+                          <li key={index}>
+                            <a>
+                              <span>{base}</span>
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+                <InfiniteScroll
+                  dataLength={select.product.results.length}
+                  next={fetchData}
+                  hasMore={select.product.next ? true : false}
+                  loader={
+                    <div className="loading-product">
+                      <div className="cp-spinner cp-boxes"></div>{' '}
+                    </div>
+                  }
+                  refreshFunction={refresh}
+                  pullDownToRefreshThreshold={8}
+                  pullDownToRefreshContent={<div>Pull Refresh</div>}
+                  className="lists"
+                >
+                  {_.map(select.product.results, (base, index) => {
+                    return (
+                      <div className="card-product" key={index}>
+                        <div className="card-product-image">
+                          <img
+                            src="https://www.tradeys.com.au/wp-content/uploads/2019/05/sb312158.png"
+                            alt=""
+                          />
+                          <div className="group-absolute">
+                            <button>
+                              <Icons src={edit} className="icons" />
+                            </button>
+                            <button>
+                              <Icons src={trash} className="icons" />
+                            </button>
+                          </div>
+                        </div>
+                        <div className="card-product-body">
+                          <div className="card-product-author">
+                            <div className="card-product-avatar">
+                              <img src={base.author.avatar} alt="" />
+                            </div>
+                            <span>{base.author.user.first_name}</span>
+                          </div>
+                          <h2 className="name">{base.name}</h2>
+                          <div className="group">
+                            <div className="group-color">
+                              <div className="border-color"></div>
+                              <div className="border-color"></div>
+                              <span>+5</span>
+                            </div>
+                            <span className="price">
+                              {base.currency.price_currency}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </InfiniteScroll>
+                <div className="paginations"></div>
               </div>
             );
             break;

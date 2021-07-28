@@ -1,8 +1,8 @@
-$font-family-Inter: "Inter", sans-serif;
-$font-family-Kanit: "Kanit", sans-serif;
-$font-family-Lato: "Lato", sans-serif;
-$font-family-Open: "Open Sans", sans-serif;
-$font-family-public: "Public Sans", sans-serif;
+$font-family-Inter: 'Inter', sans-serif;
+$font-family-Kanit: 'Kanit', sans-serif;
+$font-family-Lato: 'Lato', sans-serif;
+$font-family-Open: 'Open Sans', sans-serif;
+$font-family-public: 'Public Sans', sans-serif;
 
 $white: rgba(255, 255, 255);
 $boxshadow-pedia: rgb(0 0 0 / 7%) 0px 4px 6px -1px;
@@ -164,7 +164,7 @@ $text: rgba(49, 53, 59, 0.68);
   position: relative;
   animation: a-active 1s forwards;
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 29px;
     width: 7px;
@@ -201,7 +201,7 @@ $text: rgba(49, 53, 59, 0.68);
       position: relative;
       &:not(:first-child) {
         &::before {
-          content: "";
+          content: '';
           position: absolute;
           left: 0;
           top: 50%;
@@ -243,7 +243,7 @@ $text: rgba(49, 53, 59, 0.68);
     &::before {
       position: absolute;
       animation: tabs 1s forwards;
-      content: "";
+      content: '';
       width: 100%;
       height: 1.55px;
       background-color: $color;
@@ -372,7 +372,7 @@ $text: rgba(49, 53, 59, 0.68);
   justify-content: center;
 }
 
-.upload-btn-wrapper input[type="file"] {
+.upload-btn-wrapper input[type='file'] {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -870,7 +870,7 @@ $text: rgba(49, 53, 59, 0.68);
       height: 190px;
       position: relative;
       &::before {
-        content: "";
+        content: '';
         width: 100%;
         height: 100%;
         background-color: rgb(0 0 0 / 17%);
@@ -978,4 +978,176 @@ $text: rgba(49, 53, 59, 0.68);
       }
     }
   }
+}
+
+.lists {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0px 0px 4rem 0px;
+}
+
+.card-product {
+  width: 100%;
+  max-width: 240px;
+  margin: 5px;
+  background-color: $white;
+  box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+    rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+  -webkit-box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+    rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+  -moz-box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+    rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+  border-radius: 20px;
+  overflow: hidden;
+  .card-product-image {
+    width: 100%;
+    height: 260px;
+    border-radius: 15px;
+    position: relative;
+    img {
+      width: 100%;
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+    .group-absolute {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      padding: 0px 10px 0px 10px;
+      button {
+        width: 32px;
+        height: 32px;
+        background-color: $white;
+        border-radius: 8px;
+        box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+          rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+        -webkit-box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+          rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+        -moz-box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+          rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0px 5px 0px 5px;
+        &:first-child {
+          margin: 0px 5px 0px 0px;
+        }
+        .icons {
+          width: 20px;
+          height: 20px;
+          margin: 0px;
+        }
+      }
+    }
+  }
+  .card-product-body {
+    padding: 10px;
+    .card-product-author {
+      display: flex;
+      align-items: center;
+      margin: 0px 0px 5px 0px;
+      background-color: #f1f1f1;
+      transition: 500ms ease-in-out;
+      padding: 3px;
+      border-radius: 10px;
+      .card-product-avatar {
+        width: 38px;
+        height: 38px;
+        background-color: $white;
+        box-shadow: $boxshadow-pedia;
+        -webkit-box-shadow: $boxshadow-pedia;
+        -moz-box-shadow: $boxshadow-pedia;
+        border-radius: 10px;
+        padding: 3px;
+        margin: 0px 5px 0px 0px;
+        img {
+          width: 100%;
+          height: 100%;
+          background-size: 100% 100%;
+          background-position: center;
+          background-repeat: no-repeat;
+          border-radius: 10px;
+        }
+      }
+      span {
+        font-size: 12px;
+        font-family: $font-family-public;
+        color: $text;
+      }
+      &:hover {
+        cursor: pointer;
+        border-radius: 15px;
+        background-color: rgb(0 171 85 / 24%);
+        span {
+          color: $color !important;
+        }
+      }
+    }
+    .name {
+      font-size: 14px;
+      margin: 0px;
+      font-family: $font-family-Kanit;
+    }
+    .group {
+      font-size: 13.333px;
+      color: $text;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 5px 0px 5px;
+      .group-color {
+        display: flex;
+        align-items: center;
+        .border-color {
+          width: 12px;
+          height: 12px;
+          border-radius: 100%;
+          position: relative;
+          background-color: $white;
+          box-shadow: $boxshadow-pedia;
+          -webkit-box-shadow: $boxshadow-pedia;
+          -moz-box-shadow: $boxshadow-pedia;
+          margin: 0px 1.25px 0px 1.25px;
+          &:first-child {
+            margin: 0px 1.25px 0px 0px;
+          }
+          &::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: yellow;
+            border-radius: 10px;
+          }
+        }
+        span {
+          font-size: 12px;
+          font-family: $font-family-Kanit;
+          margin: 0px 0px 0px 5px;
+          color: $color;
+        }
+      }
+      .price {
+        font-family: $font-family-Kanit;
+        font-size: 13.333px;
+      }
+    }
+  }
+}
+
+.loading-product {
+  margin: 0px 15px 0px 15px;
+  width: 100%;
+  max-width: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

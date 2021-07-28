@@ -1,6 +1,6 @@
-import { AxiosResponse } from "axios";
-import { Dispatch } from "redux";
-import { DefaultTypes, UserTypes } from "../types/enum";
+import { AxiosResponse } from 'axios';
+import { Dispatch } from 'redux';
+import { DefaultTypes, ProductType, UserTypes } from '../types/enum';
 
 interface Message {
   non_field_errors: any[];
@@ -37,7 +37,7 @@ class AllDispatch {
 
   public defaultDispatch(dispatch: Dispatch, args: any, type: string) {
     switch (type) {
-      case "drawer":
+      case 'drawer':
         dispatch({
           type: DefaultTypes.drawer,
           payload: {
@@ -55,7 +55,7 @@ class AllDispatch {
           },
         });
         break;
-      case "hidden":
+      case 'hidden':
         dispatch({
           type: DefaultTypes.hidden,
           payload: {
@@ -63,7 +63,7 @@ class AllDispatch {
           },
         });
         break;
-      case "loading":
+      case 'loading':
         dispatch({
           type: DefaultTypes.loading,
           payload: {
@@ -71,7 +71,7 @@ class AllDispatch {
           },
         });
         break;
-      case "message":
+      case 'message':
         dispatch({
           type: DefaultTypes.message,
           payload: {
@@ -82,7 +82,7 @@ class AllDispatch {
           },
         });
         break;
-      case "reset":
+      case 'reset':
         dispatch({
           type: DefaultTypes.reset,
           payload: {
@@ -90,7 +90,7 @@ class AllDispatch {
           },
         });
         break;
-      case "token":
+      case 'token':
         dispatch({
           type: DefaultTypes.token,
           payload: {
@@ -98,7 +98,7 @@ class AllDispatch {
           },
         });
         break;
-      case "sort":
+      case 'sort':
         dispatch({
           type: UserTypes.sort_employe,
           payload: {
@@ -106,11 +106,47 @@ class AllDispatch {
           },
         });
         break;
-      case "search-user":
+      case 'search-user':
         dispatch({
           type: UserTypes.search_employe,
           payload: {
             data: args,
+          },
+        });
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  public productdispatch(
+    dispatch: Dispatch,
+    res: AxiosResponse<any>,
+    context: any
+  ) {
+    switch (context) {
+      case 'extall':
+        dispatch({
+          type: ProductType.list_category,
+          payload: {
+            data: res.data,
+          },
+        });
+        break;
+      case 'productall':
+        dispatch({
+          type: ProductType.list_product,
+          payload: {
+            data: res.data,
+          },
+        });
+        break;
+      case 'pull_product':
+        dispatch({
+          type: ProductType.pull_product,
+          payload: {
+            data: res.data,
           },
         });
         break;
@@ -125,7 +161,7 @@ class AllDispatch {
     context: any
   ) {
     switch (context) {
-      case "me":
+      case 'me':
         dispatch({
           type: UserTypes.me,
           payload: {
@@ -133,7 +169,7 @@ class AllDispatch {
           },
         });
         break;
-      case "default":
+      case 'default':
         dispatch({
           type: DefaultTypes.free_json,
           payload: {
@@ -146,7 +182,7 @@ class AllDispatch {
     }
     if (context.type) {
       switch (context.type.name) {
-        case "destroy_employe":
+        case 'destroy_employe':
           dispatch({
             type: UserTypes.destroy_employe,
             payload: {
@@ -154,7 +190,7 @@ class AllDispatch {
             },
           });
           break;
-        case "destroy_employe_many":
+        case 'destroy_employe_many':
           dispatch({
             type: UserTypes.destroy_employe_many,
             payload: {
@@ -164,13 +200,13 @@ class AllDispatch {
           context.stateActions({
             ...context.state,
             avatar: null,
-            avatar_url: "",
+            avatar_url: '',
             destroyArray: false,
             array: [],
             filter: [],
           });
           break;
-        case "update_employe":
+        case 'update_employe':
           dispatch({
             type: UserTypes.update_employe,
             payload: {
@@ -183,11 +219,11 @@ class AllDispatch {
             payload: {
               drawer: {
                 active: 0,
-                page: "user",
-                child_page: "list",
-                parent_page: "",
-                title: "User list",
-                breadcrumbs: ["Dashboard", "User", "List"],
+                page: 'user',
+                child_page: 'list',
+                parent_page: '',
+                title: 'User list',
+                breadcrumbs: ['Dashboard', 'User', 'List'],
                 update: false,
                 context: {},
                 record: false,
@@ -195,7 +231,7 @@ class AllDispatch {
             },
           });
           break;
-        case "updated_accounts":
+        case 'updated_accounts':
           dispatch({
             type: UserTypes.update_accounts,
             payload: {
@@ -203,7 +239,7 @@ class AllDispatch {
             },
           });
           break;
-        case "add_employe":
+        case 'add_employe':
           dispatch({
             type: UserTypes.add_employe,
             payload: {
@@ -215,11 +251,11 @@ class AllDispatch {
             payload: {
               drawer: {
                 active: 0,
-                page: "user",
-                child_page: "list",
-                parent_page: "",
-                title: "User list",
-                breadcrumbs: ["Dashboard", "User", "List"],
+                page: 'user',
+                child_page: 'list',
+                parent_page: '',
+                title: 'User list',
+                breadcrumbs: ['Dashboard', 'User', 'List'],
                 update: false,
                 context: {},
                 record: false,

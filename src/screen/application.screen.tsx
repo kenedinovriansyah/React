@@ -1,15 +1,15 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { allActions } from "../configureStore/actions/all.actions";
-import _ from "lodash";
-import "./static/application.scss";
-import LeftCols from "./application/left";
-import { ApplicationState } from "../configureStore";
-import { allDispatch } from "../configureStore/extensions/dispatch";
-import { ColsRightContext, ColsRightContextApp } from "../context/cols.right";
-import { User } from "../configureStore/types/interface";
-import { Icons } from "../ref/icons";
-import search from "../media/icons/magnifying-glass-search.svg";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { allActions } from '../configureStore/actions/all.actions';
+import _ from 'lodash';
+import './static/application.scss';
+import LeftCols from './application/left';
+import { ApplicationState } from '../configureStore';
+import { allDispatch } from '../configureStore/extensions/dispatch';
+import { ColsRightContext, ColsRightContextApp } from '../context/cols.right';
+import { User } from '../configureStore/types/interface';
+import { Icons } from '../ref/icons';
+import search from '../media/icons/magnifying-glass-search.svg';
 
 const ApplicationScreen = () => {
   const selector = useSelector((state: ApplicationState) => state.default);
@@ -22,14 +22,32 @@ const ApplicationScreen = () => {
     if (mounted) {
       dispatch(
         allActions.all({
-          url: "/api/v1/user/accounts/me/",
+          url: '/api/v1/user/accounts/me/',
           status: 200,
-          method: "get",
+          method: 'get',
           auth: true,
           json: true,
         })
       );
     }
+    dispatch(
+      allActions.all({
+        url: '/api/v1/product/category/ext/all/',
+        status: 200,
+        method: 'get',
+        auth: false,
+        json: true,
+      })
+    );
+    dispatch(
+      allActions.all({
+        url: '/api/v1/product/all/',
+        status: 200,
+        method: 'get',
+        auth: false,
+        json: true,
+      })
+    );
     return () => {
       mounted = false;
     };
@@ -37,11 +55,11 @@ const ApplicationScreen = () => {
 
   const change = (args: React.ChangeEvent<HTMLInputElement>) => {
     switch (selector.drawer.child_page) {
-      case "card":
+      case 'card':
         allDispatch.defaultDispatch(
           dispatch,
           args.currentTarget.value,
-          "search-user"
+          'search-user'
         );
         break;
 
@@ -52,7 +70,7 @@ const ApplicationScreen = () => {
 
   const click = (name: string, type: string, args: User) => {
     switch (type) {
-      case "parent-page":
+      case 'parent-page':
         allDispatch.defaultDispatch(
           dispatch,
           {
@@ -65,7 +83,7 @@ const ApplicationScreen = () => {
             update: true,
             context: args,
           },
-          "drawer"
+          'drawer'
         );
         break;
 
@@ -108,8 +126,8 @@ const ApplicationScreen = () => {
                       select.user.data
                         ? select.user.data.accounts
                           ? select.user.data.accounts.avatar
-                          : ""
-                        : ""
+                          : ''
+                        : ''
                     }
                     alt=""
                   />

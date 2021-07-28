@@ -1,3 +1,48 @@
+import { Moment } from 'moment';
+
+export interface Stock {
+  public_id?: string;
+  stock?: string;
+  max_stock?: string;
+  sold?: string;
+}
+
+export interface TypeProduct {
+  public_id?: string;
+  type?: string;
+}
+
+export interface Currency {
+  public_id?: string;
+  price?: string;
+  price_currency?: string;
+  sell_currency?: string;
+  sell?: string;
+}
+
+export interface Product {
+  public_id?: string;
+  icons?: string;
+  name?: string;
+  description?: string;
+  type?: TypeProduct[];
+  category?: Category;
+  stock?: Stock;
+  currency?: Currency;
+  author?: Accounts;
+  create_at?: string;
+  updated_at?: string;
+}
+
+export interface Category {
+  public_id?: string;
+  name?: string;
+  create_at?: Moment;
+  updated_at?: Moment;
+  product?: Product[];
+  author?: Accounts;
+}
+
 export interface InterEmploye {
   name: string;
   id: string;
@@ -38,6 +83,7 @@ export interface Accounts {
   phone: Phone;
   type: Type;
   employe: User[];
+  user?: User;
 }
 
 export interface Message {
@@ -90,4 +136,25 @@ export interface UserState {
   readonly user: User[];
   readonly data: User;
   soft: any[];
+}
+
+export interface ProductPaginationState {
+  results: Product[];
+  count: number;
+  next: string;
+  previous: string;
+}
+
+export interface CategoryPaginationState {
+  results: Category[];
+  count: number;
+  next: string;
+  previous: string;
+}
+
+export interface ProductState {
+  product: ProductPaginationState;
+  dproduct: Product;
+  category: CategoryPaginationState;
+  dcategory: Category;
 }
