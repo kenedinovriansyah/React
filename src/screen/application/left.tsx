@@ -183,7 +183,12 @@ const LeftCols = () => {
             className={
               selector.drawer.page === 'm-ecommerce' ? 'a-active' : 'a-unactive'
             }
-            href=""
+            href="#"
+            onClick={click.bind('', 'shop', 'child-page', 'Shop', [
+              'Dashboard',
+              'E-commerce',
+              'Shop',
+            ])}
           >
             Shop
           </a>

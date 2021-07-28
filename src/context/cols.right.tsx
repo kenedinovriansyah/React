@@ -146,20 +146,42 @@ export const ColsRightContextApp = () => {
     });
   };
 
-  const clickDestroy = (id: string) => {
-    dispatch(
-      allActions.all({
-        url: `/api/v1/user/${id}`,
-        status: 200,
-        method: 'delete',
-        json: true,
-        auth: true,
-        type: {
-          value: id,
-          name: 'destroy_employe',
-        },
-      })
-    );
+  const clickDestroy = (context: any, type: string) => {
+    switch (type) {
+      case 'accounts':
+        dispatch(
+          allActions.all({
+            url: `/api/v1/user/${context}`,
+            status: 200,
+            method: 'delete',
+            json: true,
+            auth: true,
+            type: {
+              value: context,
+              name: 'destroy_employe',
+            },
+          })
+        );
+        break;
+      case 'product':
+        dispatch(
+          allActions.all({
+            url: `/api/v1/product/product/${context.public_id}`,
+            method: 'delete',
+            status: 200,
+            json: true,
+            auth: true,
+            type: {
+              value: context.category.public_id,
+              name: 'destroy_product',
+              child_value: context.public_id,
+            },
+          })
+        );
+        break;
+      default:
+        break;
+    }
   };
 
   const clickDestroyManyToMany = (args: React.MouseEvent<HTMLSpanElement>) => {
@@ -465,7 +487,8 @@ export const ColsRightContextApp = () => {
                                   className="box"
                                   onClick={clickDestroy.bind(
                                     base,
-                                    base.accounts.public_id
+                                    base.accounts.public_id,
+                                    'accounts'
                                   )}
                                 >
                                   <Icons src={trash} className="icons" />
@@ -558,7 +581,8 @@ export const ColsRightContextApp = () => {
                               <button
                                 onClick={clickDestroy.bind(
                                   items,
-                                  items.accounts.public_id
+                                  items.accounts.public_id,
+                                  'accounts'
                                 )}
                               >
                                 <Icons className="icons" src={trash} />
@@ -634,7 +658,13 @@ export const ColsRightContextApp = () => {
                               <button>
                                 <Icons src={edit} className="icons" />
                               </button>
-                              <button>
+                              <button
+                                onClick={clickDestroy.bind(
+                                  base,
+                                  base,
+                                  'product'
+                                )}
+                              >
                                 <Icons src={trash} className="icons" />
                               </button>
                             </div>
@@ -649,9 +679,22 @@ export const ColsRightContextApp = () => {
                             <h2 className="name">{base.name}</h2>
                             <div className="group">
                               <div className="group-color">
-                                <div className="border-color"></div>
-                                <div className="border-color"></div>
-                                <span>+5</span>
+                                {_.map(
+                                  base.galery.slice(0, 2),
+                                  (base_h, index_h) => (
+                                    <div className="border-color" key={index_h}>
+                                      <div
+                                        className="child-border-color"
+                                        style={{
+                                          backgroundColor: base_h.hex,
+                                        }}
+                                      ></div>
+                                    </div>
+                                  )
+                                )}
+                                {base.galery.length >= 3 ? (
+                                  <span>+5</span>
+                                ) : null}
                               </div>
                               <span className="price">
                                 {base.currency.price_currency}

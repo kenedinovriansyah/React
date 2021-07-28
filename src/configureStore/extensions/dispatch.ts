@@ -160,6 +160,23 @@ class AllDispatch {
       default:
         break;
     }
+
+    if (context.type) {
+      switch (context.type.name) {
+        case 'destroy_product':
+          dispatch({
+            type: ProductType.destroy_product,
+            payload: {
+              category: context.type.value,
+              product: context.type.child_value,
+            },
+          });
+          break;
+
+        default:
+          break;
+      }
+    }
   }
 
   public userdispatch(

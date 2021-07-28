@@ -12,6 +12,12 @@ export interface TypeProduct {
   type?: string;
 }
 
+export interface ProductImage {
+  public_id?: string;
+  image?: string;
+  hex?: string;
+}
+
 export interface Currency {
   public_id?: string;
   price?: string;
@@ -32,6 +38,7 @@ export interface Product {
   author?: Accounts;
   create_at?: string;
   updated_at?: string;
+  galery?: ProductImage[];
 }
 
 export interface Category {

@@ -1124,6 +1124,7 @@ $text: rgba(49, 53, 59, 0.68);
       .group-color {
         display: flex;
         align-items: center;
+        cursor: default;
         .border-color {
           width: 12px;
           height: 12px;
@@ -1137,15 +1138,14 @@ $text: rgba(49, 53, 59, 0.68);
           &:first-child {
             margin: 0px 1.25px 0px 0px;
           }
-          &::before {
-            content: '';
+          .child-border-color {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 6px;
+            height: 6px;
+            cursor: pointer;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: yellow;
             border-radius: 10px;
           }
         }

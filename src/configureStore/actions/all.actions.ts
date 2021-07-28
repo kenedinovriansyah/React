@@ -21,6 +21,7 @@ export interface ActionsType {
   type?: {
     name?: string;
     value?: any;
+    child_value?: any;
   };
   state?: ColsRightStateActions;
   stateActions?: React.Dispatch<React.SetStateAction<ColsRightStateActions>>;
@@ -96,6 +97,7 @@ class AllActions {
     let name_ = '',
       pull_product = '/product/all/?page=',
       pull_category = '/category/ext/all/?page=',
+      product = 'api/v1/product/',
       pull = [];
     pull.unshift(context.url);
     const _pull =
@@ -140,7 +142,11 @@ class AllActions {
       }
     } else {
       // fetch user and employe
-      allDispatch.userdispatch(dispatch, res, context);
+      if (pull.filter((x) => x.indexOf(product) > -1)[0]) {
+        allDispatch.productdispatch(dispatch, res, context);
+      } else {
+        allDispatch.userdispatch(dispatch, res, context);
+      }
       if (context.type.name !== 'updated_accounts') {
         dispatch({
           type: DefaultTypes.reset,
