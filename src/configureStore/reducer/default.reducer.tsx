@@ -8,10 +8,10 @@ const initialState: DefaultState = {
   drawer: {
     active: 0,
     page: 'm-ecommerce',
-    child_page: 'shop',
+    child_page: 'create-product',
     parent_page: '',
-    title: 'Shop',
-    breadcrumbs: ['Dashboard', 'E-commerce', 'Shop'],
+    title: 'Create a new product',
+    breadcrumbs: ['Dashboard', 'E-commerce', 'New Product'],
     update: false,
     context: {},
     record: false,

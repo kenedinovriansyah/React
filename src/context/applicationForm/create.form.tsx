@@ -3,36 +3,52 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '../../configureStore';
 import { allActions } from '../../configureStore/actions/all.actions';
-import down from '../../media/icons/chevron-arrow-down.svg';
-import { Icons } from '../../ref/icons';
-import info from '../../media/icons/info-1.svg';
 import { allDispatch } from '../../configureStore/extensions/dispatch';
-import camera from '../../media/icons/camera.svg';
+import { UserFormColsLeft, UserFormColsRight } from './create/user.form';
+import { ProductFormLeft, ProductFormRight } from './create/product.form';
+import { formfield } from './utils/form.state';
 
-const CreateForm = () => {
+interface ContextProps {
+  name: string;
+}
+
+export interface FormState {
+  first_name: string;
+  last_name: string;
+  username: string;
+  email: string;
+  gender: string;
+  genderId: string;
+  genderDropdown: boolean;
+  type: string;
+  typeId: string;
+  typeDropdown: any;
+  phone_number: string;
+  country: string;
+  state: string;
+  city: string;
+  address: string;
+  postal_code: string;
+  avatar: any;
+  avatar_url: string;
+  description: string;
+  name: string;
+  arrayImage: any[];
+  price: string;
+  sales_price: string;
+  category: string;
+  genders: any[];
+  sku: string;
+  code: string;
+}
+
+const CreateForm: React.FC<ContextProps> = (
+  props: React.PropsWithChildren<ContextProps>
+) => {
   const dispatch = useDispatch();
   const selector = useSelector((state: ApplicationState) => state);
   const defaults = useSelector((state: ApplicationState) => state.default);
-  const [state, setState] = React.useState({
-    first_name: '',
-    last_name: '',
-    username: '',
-    email: '',
-    gender: '',
-    genderId: '',
-    genderDropdown: false,
-    type: '',
-    typeId: '',
-    typeDropdown: false,
-    phone_number: '',
-    country: '',
-    state: '',
-    city: '',
-    address: '',
-    postal_code: '',
-    avatar: null,
-    avatar_url: '',
-  });
+  const [state, setState] = React.useState<FormState>(formfield.state());
 
   React.useEffect(() => {
     let mounted = true;
@@ -53,55 +69,13 @@ const CreateForm = () => {
   }, []);
   React.useEffect(() => {
     if (defaults.reset) {
-      setState({
-        ...state,
-        first_name: '',
-        last_name: '',
-        username: '',
-        email: '',
-        gender: '',
-        genderId: '',
-        genderDropdown: false,
-        type: '',
-        typeId: '',
-        typeDropdown: false,
-        phone_number: '',
-        country: '',
-        state: '',
-        city: '',
-        address: '',
-        postal_code: '',
-        avatar: null,
-        avatar_url: '',
-      });
+      formfield.clear(state, setState);
     }
   }, [defaults.reset]);
 
   React.useEffect(() => {
     if (selector.default.drawer.update) {
-      setState({
-        ...state,
-        first_name: selector.default.drawer.context.first_name,
-        last_name: selector.default.drawer.context.last_name,
-        username: selector.default.drawer.context.username,
-        email: selector.default.drawer.context.email,
-        gender: selector.default.drawer.context.accounts.name_gender,
-        genderId: selector.default.drawer.context.accounts.gender,
-        genderDropdown: false,
-        type: selector.default.drawer.context.accounts.type.name,
-        typeId: selector.default.drawer.context.accounts.type.type,
-        typeDropdown: false,
-        phone_number:
-          selector.default.drawer.context.accounts.phone.phone_numbers,
-        country: selector.default.drawer.context.accounts.address.country,
-        state: selector.default.drawer.context.accounts.address.state,
-        city: selector.default.drawer.context.accounts.address.city,
-        address: selector.default.drawer.context.accounts.address.address,
-        postal_code:
-          selector.default.drawer.context.accounts.address.postal_code,
-        avatar: null,
-        avatar_url: defaults.drawer.context.accounts.avatar,
-      });
+      formfield.updateUser(state, setState, selector, defaults);
     }
   }, [selector.default.drawer.update]);
 
@@ -109,169 +83,19 @@ const CreateForm = () => {
     args: React.ChangeEvent<HTMLInputElement>,
     context: string
   ) => {
-    switch (context) {
-      case 'first_name':
-        setState({
-          ...state,
-          first_name: args.currentTarget.value,
-        });
-        break;
-      case 'last_name':
-        setState({
-          ...state,
-          last_name: args.currentTarget.value,
-        });
-        break;
-      case 'gender':
-        const gender = selector.default.default.gender.filter(
-          (x) => x.name.indexOf(args.currentTarget.value) > -1
-        )[0];
-        let is_done: boolean = true;
-        if (gender) {
-          if (gender.name === args.currentTarget.value) {
-            is_done = false;
-          }
-        }
-        setState({
-          ...state,
-          gender: args.currentTarget.value,
-          genderDropdown:
-            args.currentTarget.value.length >= 1 ? is_done : false,
-          genderId: gender ? gender.id : '0',
-        });
-        break;
-      case 'type':
-        const type = selector.default.default.employe.filter(
-          (x) => x.name.indexOf(args.currentTarget.value) > -1
-        )[0];
-        let done: boolean = true;
-        if (type) {
-          if (type.name === args.currentTarget.value) {
-            done = false;
-          }
-        }
-        setState({
-          ...state,
-          type: args.currentTarget.value,
-          typeDropdown: args.currentTarget.value.length >= 1 ? done : false,
-          typeId: type ? type.id : '0',
-        });
-        break;
-      case 'phone_number':
-        setState({
-          ...state,
-          phone_number: args.currentTarget.value,
-        });
-        break;
-      case 'username':
-        setState({
-          ...state,
-          username: args.currentTarget.value,
-        });
-        break;
-      case 'email':
-        setState({
-          ...state,
-          email: args.currentTarget.value,
-        });
-        break;
-      case 'country':
-        setState({
-          ...state,
-          country: args.currentTarget.value,
-        });
-        break;
-      case 'state':
-        setState({
-          ...state,
-          state: args.currentTarget.value,
-        });
-        break;
-      case 'city':
-        setState({
-          ...state,
-          city: args.currentTarget.value,
-        });
-        break;
-      case 'address':
-        setState({
-          ...state,
-          address: args.currentTarget.value,
-        });
-        break;
-      case 'postal_code':
-        setState({
-          ...state,
-          postal_code: args.currentTarget.value,
-        });
-        break;
-      default:
-        break;
-    }
+    formfield.input_field(args, context, state, setState, selector);
+  };
+
+  const changeTextarea = (
+    args: React.ChangeEvent<HTMLTextAreaElement>,
+    type: string
+  ) => {
+    formfield.textarea_field(args, type, state, setState);
   };
 
   const submit = (args: React.FormEvent<HTMLFormElement>) => {
     args.preventDefault();
-    let owner: any = true;
-    if (selector.default.drawer.context) {
-      owner =
-        selector.default.drawer.context.accounts.public_id !==
-        selector.user.data.accounts.public_id;
-    }
-    const data = new FormData();
-    data.append('username', state.username);
-    data.append('email', state.email);
-    data.append('first_name', state.first_name);
-    data.append('last_name', state.last_name);
-    data.append('gender', state.genderId);
-    data.append('type', state.typeId);
-    data.append('phone', state.phone_number);
-    data.append('country', state.country);
-    data.append('state', state.state);
-    data.append('city', state.city);
-    data.append('address', state.address);
-    data.append('postal_code', state.postal_code);
-    if (state.avatar) {
-      data.append('avatar', state.avatar);
-    }
-    if (owner) {
-      data.append('types', 'employe');
-    }
-
-    allDispatch.defaultDispatch(
-      dispatch,
-      {
-        message: '',
-        valid: 0,
-        color: 0,
-        loading: true,
-      },
-      'message'
-    );
-    dispatch(
-      allActions.all({
-        url: defaults.drawer.update
-          ? !owner
-            ? '/api/v1/user/updated/accounts/'
-            : `/api/v1/user/updated/accounts/employe/${defaults.drawer.context.accounts.public_id}/`
-          : '/api/v1/user/updated/accounts/',
-        dataForm: data,
-        status: 200,
-        json: false,
-        auth: true,
-        method: 'post',
-        type: {
-          name: selector.default.drawer.record
-            ? 'add_employe'
-            : !owner
-            ? 'updated_accounts'
-            : 'update_employe',
-          value: selector.default.drawer.context
-            ? selector.default.drawer.context.accounts.public_id
-            : '',
-        },
-      })
-    );
+    formfield.submit(state, selector, dispatch, defaults);
   };
 
   const clickSelect = (name: string, id: string, type: string) => {
@@ -308,288 +132,62 @@ const CreateForm = () => {
     });
   };
 
+  let right: any, left: any;
+
+  switch (props.name) {
+    case 'create':
+      left = (
+        <UserFormColsLeft
+          state={state}
+          setState={setState}
+          selector={selector}
+          defaults={defaults}
+          change={change}
+          submit={submit}
+          clickSelect={clickSelect}
+        />
+      );
+      right = (
+        <UserFormColsRight
+          state={state}
+          setState={setState}
+          selector={selector}
+          defaults={defaults}
+          change={change}
+          submit={submit}
+          clickSelect={clickSelect}
+        />
+      );
+      break;
+    case 'create-product':
+      left = (
+        <ProductFormLeft
+          selector={selector}
+          state={state}
+          change={change}
+          submit={submit}
+          changeTextarea={changeTextarea}
+        />
+      );
+      right = (
+        <ProductFormRight
+          selector={selector}
+          state={state}
+          change={change}
+          submit={submit}
+          changeTextarea={changeTextarea}
+        />
+      );
+      break;
+
+    default:
+      break;
+  }
+
   return selector.user.data ? (
     <div className="create-grid">
-      <div className="create-cols">
-        <div className="create-upload-avatar">
-          <div className="upload-avatar">
-            <div className="upload-btn-wrapper">
-              <input
-                type="file"
-                name="avatar"
-                id="avatar"
-                className="avatar"
-                onChange={changeFiles}
-                accept=".jpg,jpeg,.png"
-              />
-              {state.avatar_url ? (
-                <img src={state.avatar_url} alt="" className="avatar" />
-              ) : (
-                <div className="child-upload-avatar">
-                  <Icons src={camera} className="icons" />
-                  <span>Upload photo</span>
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="title">
-            <span>Allowed *.jpeg, *.jpg, *.png, *.gif</span>{' '}
-            <span>max size of 3.1 MB</span>
-          </div>
-        </div>
-      </div>
-      <div className="create-cols">
-        <form onSubmit={submit} className="app-form">
-          <div className="field" id="field-group">
-            <div className="field" id="field-input">
-              <input
-                type="text"
-                name="username"
-                id="username"
-                className="username"
-                placeholder="Username"
-                autoComplete="off"
-                readOnly={selector.default.message.loading}
-                value={state.username}
-                onChange={(args) => change(args, 'username')}
-                required
-              />
-            </div>
-            <div className="field" id="field-input">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                className="email"
-                placeholder="Email Address"
-                autoComplete="off"
-                readOnly={selector.default.message.loading}
-                value={state.email}
-                onChange={(args) => change(args, 'email')}
-                required
-              />
-            </div>
-          </div>
-          <div className="field" id="field-group">
-            <div className="field" id="field-input">
-              <input
-                type="text"
-                name="first_name"
-                id="first_name"
-                className="first_name"
-                placeholder="First Name"
-                autoComplete="off"
-                readOnly={selector.default.message.loading}
-                value={state.first_name}
-                onChange={(args) => change(args, 'first_name')}
-                required
-              />
-            </div>
-            <div className="field" id="field-input">
-              <input
-                type="text"
-                name="last_name"
-                id="last_name"
-                className="last_name"
-                placeholder="Last Name"
-                autoComplete="off"
-                readOnly={selector.default.message.loading}
-                value={state.last_name}
-                onChange={(args) => change(args, 'last_name')}
-                required
-              />
-            </div>
-          </div>
-          <div className="field" id="field-group">
-            <div id="app-menu">
-              <div className="field" id="field-input">
-                <input
-                  type="text"
-                  name="gender"
-                  id="gender"
-                  className="gender"
-                  placeholder="Gender"
-                  autoComplete="off"
-                  readOnly={selector.default.message.loading}
-                  value={state.gender}
-                  onChange={(args) => change(args, 'gender')}
-                  required
-                />
-                <div className="box">
-                  <Icons src={down} className="icons" />
-                </div>
-              </div>
-              <div className={state.genderDropdown ? 'dropdown' : 'hidden'}>
-                <div className="dropdown-list">
-                  {_.map(selector.default.default.gender, (base, index) => {
-                    return (
-                      <a
-                        href="#"
-                        key={index}
-                        onClick={clickSelect.bind(
-                          base,
-                          base.name,
-                          base.id,
-                          'gender'
-                        )}
-                      >
-                        {base.name}
-                      </a>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-            <div id="app-menu">
-              <div className="field" id="field-input">
-                <input
-                  type="text"
-                  name="type"
-                  id="type"
-                  className="type"
-                  placeholder="Type"
-                  autoComplete="off"
-                  readOnly={selector.default.message.loading}
-                  value={state.type}
-                  onChange={(args) => change(args, 'type')}
-                  required
-                />
-                <div className="box">
-                  <Icons src={down} className="icons" />
-                </div>
-              </div>
-              <div className={state.typeDropdown ? 'dropdown' : 'hidden'}>
-                <div className="dropdown-list">
-                  {_.map(selector.default.default.employe, (base, index) => {
-                    return (
-                      <a
-                        href="#"
-                        key={index}
-                        onClick={clickSelect.bind(
-                          base,
-                          base.name,
-                          base.id,
-                          'type'
-                        )}
-                      >
-                        {base.name}
-                      </a>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="field" id="field-group">
-            <div className="field" id="field-input">
-              <input
-                type="text"
-                name="phone_number"
-                id="phone_number"
-                className="phone_number"
-                placeholder="Phone Number"
-                autoComplete="off"
-                readOnly={selector.default.message.loading}
-                value={state.phone_number}
-                onChange={(args) => change(args, 'phone_number')}
-                required
-              />
-            </div>
-            <div className="field" id="field-input">
-              <input
-                type="text"
-                name="country"
-                id="country"
-                className="country"
-                placeholder="Country"
-                autoComplete="off"
-                readOnly={selector.default.message.loading}
-                value={state.country}
-                onChange={(args) => change(args, 'country')}
-                required
-              />
-            </div>
-          </div>
-          <div className="field" id="field-group">
-            <div className="field" id="field-input">
-              <input
-                type="text"
-                name="state"
-                id="state"
-                className="state"
-                placeholder="State/Region"
-                autoComplete="off"
-                readOnly={selector.default.message.loading}
-                value={state.state}
-                onChange={(args) => change(args, 'state')}
-                required
-              />
-            </div>
-            <div className="field" id="field-input">
-              <input
-                type="text"
-                name="city"
-                id="city"
-                className="city"
-                placeholder="City"
-                autoComplete="off"
-                readOnly={selector.default.message.loading}
-                value={state.city}
-                onChange={(args) => change(args, 'city')}
-                required
-              />
-            </div>
-          </div>
-          <div className="field" id="field-group">
-            <div className="field" id="field-input">
-              <input
-                type="text"
-                name="address"
-                id="address"
-                className="address"
-                placeholder="Address"
-                autoComplete="off"
-                readOnly={selector.default.message.loading}
-                value={state.address}
-                onChange={(args) => change(args, 'address')}
-                required
-              />
-            </div>
-            <div className="field" id="field-input">
-              <input
-                type="text"
-                name="postal_code"
-                id="postal_code"
-                className="postal_code"
-                placeholder="Postal Code"
-                autoComplete="off"
-                readOnly={selector.default.message.loading}
-                value={state.postal_code}
-                onChange={(args) => change(args, 'postal_code')}
-                required
-              />
-            </div>
-          </div>
-          <div id="field-description">
-            <Icons src={info} className="icons" />
-            <span>
-              Make sure the email address is active because we will send the
-              password automatically to the user
-            </span>
-          </div>
-          <div className="field" id="field-button">
-            <button
-              type={selector.default.message.loading ? 'button' : 'submit'}
-              id={selector.default.message.loading ? 'loading' : ''}
-            >
-              <span>Save Changes</span>
-              {selector.default.message.loading ? (
-                <div className="spin"></div>
-              ) : null}
-            </button>
-          </div>
-        </form>
-      </div>
+      <div className="create-cols">{left}</div>
+      <div className="create-cols">{right}</div>
     </div>
   ) : null;
 };

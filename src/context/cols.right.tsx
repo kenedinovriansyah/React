@@ -1,6 +1,6 @@
 import React from 'react';
 import { Drawer, User } from '../configureStore/types/interface';
-import _ from 'lodash';
+import _, { defaults } from 'lodash';
 import { AccountsContext, AccountsContextApp } from './accounts.context';
 import { Icons } from '../ref/icons';
 import CreateForm from './applicationForm/create.form';
@@ -322,7 +322,7 @@ export const ColsRightContextApp = () => {
                     })}
                   </ul>
                 </div>
-                <CreateForm />
+                <CreateForm name={open.child_page} />
               </div>
             );
             break;
@@ -707,6 +707,31 @@ export const ColsRightContextApp = () => {
                   )}
                 </InfiniteScroll>
                 <div className="paginations"></div>
+              </div>
+            );
+            break;
+          case 'create-product':
+            return (
+              <div>
+                <div className="headers">
+                  <div className="title">
+                    <h5>{open.title}</h5>
+                  </div>
+                  <div className="group">
+                    <ul className="location">
+                      {_.map(open.breadcrumbs, (base, index) => {
+                        return (
+                          <li key={index}>
+                            <a>
+                              <span>{base}</span>
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+                <CreateForm name={open.child_page} />
               </div>
             );
             break;

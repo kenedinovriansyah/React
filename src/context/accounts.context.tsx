@@ -100,7 +100,7 @@ export const AccountsContextApp = () => {
       {({ open }) => {
         switch (open) {
           case 'general':
-            return <CreateForm />;
+            return <CreateForm name={selector.default.drawer.child_page} />;
             break;
           case 'password':
             return (

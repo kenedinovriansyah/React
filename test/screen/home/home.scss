@@ -1,0 +1,245 @@
+$font-family-Inter: 'Inter', sans-serif;
+$font-family-Kanit: 'Kanit', sans-serif;
+$font-family-Lato: 'Lato', sans-serif;
+$font-family-Open: 'Open Sans', sans-serif;
+$font-family-public: 'Public Sans', sans-serif;
+
+$white: rgba(255, 255, 255);
+$boxshadow-pedia: rgb(0 0 0 / 7%) 0px 4px 6px -1px;
+$boxshadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75);
+$boxshadow-button: rgb(0 171 85 / 24%) 0px 8px 16px 0px;
+$gray: #c9d1d9;
+$color: rgb(0, 171, 85);
+$text: rgba(49, 53, 59, 0.68);
+
+button {
+  border: none;
+  outline: none;
+}
+
+.home-grid {
+  display: flex;
+  .home-cols {
+    width: 100%;
+    background-color: $white;
+    margin: 10px;
+    &:first-child {
+      box-shadow: $boxshadow-pedia;
+      -webkit-box-shadow: $boxshadow-pedia;
+      -moz-box-shadow: $boxshadow-pedia;
+      padding: 1rem 15px 1rem 15px;
+    }
+    &:last-child {
+      max-width: 28%;
+      height: fit-content;
+      border-radius: 15px;
+      position: sticky;
+      position: -webkit-sticky;
+      top: 10px;
+      height: 60vh;
+    }
+    .left-box {
+      width: 100%;
+      padding: 1rem 15px 1rem 15px;
+      box-shadow: $boxshadow-pedia;
+      -webkit-box-shadow: $boxshadow-pedia;
+      -moz-box-shadow: $boxshadow-pedia;
+      border-radius: 15px;
+      height: 37vh;
+      position: relative;
+      &:last-child {
+        margin: 15px 0px 0px 0px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: $font-family-Kanit;
+        color: $text;
+        .icons {
+          width: 15px;
+          height: 15px;
+          fill: $text;
+        }
+      }
+    }
+    h5 {
+      font-family: $font-family-Lato;
+      color: $text;
+    }
+  }
+}
+
+.card {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 15px 10px 15px 10px;
+  position: relative;
+  border: none;
+  border-bottom: solid 1px #c9d1d9;
+  .card-image {
+    width: 100%;
+    max-width: 240px;
+    height: 240px;
+    position: relative;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: $boxshadow-pedia;
+    -webkit-box-shadow: $boxshadow-pedia;
+    -moz-box-shadow: $boxshadow-pedia;
+    overflow: hidden;
+    img {
+      position: absolute;
+      width: 95%;
+      height: 95%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+  .card-body {
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .name {
+      font-family: $font-family-Kanit;
+    }
+    .size,
+    .type,
+    .color {
+      font-size: $font-family-public;
+      font-size: 13.333px;
+      text-transform: uppercase;
+      color: $text;
+    }
+    .group {
+      display: flex;
+      align-items: center;
+      button {
+        background-color: transparent;
+        font-family: $font-family-public;
+        text-transform: uppercase;
+        font-size: 13.333px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0px;
+        color: $text;
+        .icons {
+          width: 13.333px;
+          height: 13.333px;
+          margin: 0px 5px 0px 0px;
+          fill: $text;
+        }
+        &:last-child {
+          margin: 0px 0px 0px 20px;
+        }
+      }
+    }
+  }
+  .card-footer {
+    width: 200px;
+    border: none;
+    background-color: transparent;
+    position: relative;
+    .groups {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      box-shadow: $boxshadow-pedia;
+      -webkit-box-shadow: $boxshadow-pedia;
+      -moz-box-shadow: $boxshadow-pedia;
+      border-radius: 10px;
+      button {
+        width: 36px;
+        height: 36px;
+        background-color: $white;
+        &:nth-child(2) {
+          font-family: $font-family-Kanit;
+          font-size: 15px;
+          color: $text;
+        }
+        .icons {
+          width: 13px;
+          height: 13px;
+        }
+      }
+    }
+    .cost {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      .price {
+        font-family: $font-family-Kanit;
+        color: $text;
+      }
+    }
+  }
+}
+
+#love {
+  animation: love 1s forwards;
+}
+
+@keyframes love {
+  from {
+  }
+  to {
+    fill: red;
+  }
+}
+
+.left {
+  .group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0px 5px 0px;
+    &:last-child {
+      border-bottom: solid 1px #c9d1d9;
+      padding: 5px 0px 15px 0px;
+    }
+    span {
+      font-family: $font-family-Kanit;
+      color: $text;
+    }
+  }
+}
+
+.left-total {
+  padding: 15px 0px 0px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: $font-family-Kanit;
+  color: $text;
+  .left-content {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.checkout {
+  width: 90%;
+  height: 50px;
+  background-color: #0d6efd;
+  color: $white;
+  font-family: $font-family-Kanit;
+  margin: 15px 0px 0px 0px;
+  border-radius: 5px;
+  box-shadow: $boxshadow-pedia;
+  -webkit-box-shadow: $boxshadow-pedia;
+  -moz-box-shadow: $boxshadow-pedia;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  span {
+    text-transform: uppercase;
+  }
+}
