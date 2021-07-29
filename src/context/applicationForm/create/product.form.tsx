@@ -6,6 +6,8 @@ import { Icons } from '../../../ref/icons';
 import down from '../.././../media/icons/chevron-arrow-down.svg';
 import exit from '../../../media/icons/delete.svg';
 import _ from 'lodash';
+import { useDispatch } from 'react-redux';
+import { allActions } from '../../../configureStore/actions/all.actions';
 
 interface ContextProps {
   selector: ApplicationState;
@@ -23,6 +25,24 @@ export const ProductFormLeft: React.FC<ContextProps> = (
   props: React.PropsWithChildren<ContextProps>
 ) => {
   const { state, selector, change, submit } = props;
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      dispatch(
+        allActions.all({
+          url: '/api/v1/product/code/',
+          status: 200,
+          json: true,
+          auth: true,
+          method: 'get',
+        })
+      );
+    }
+    return () => {
+      mounted = false;
+    };
+  }, []);
   return (
     <form onSubmit={submit}>
       <div className="app-form" id="app-form-left">

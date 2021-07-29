@@ -157,6 +157,9 @@ class AllDispatch {
           },
         });
         break;
+      case 'productcode':
+        console.log('Hello Wolrds');
+        break;
       default:
         break;
     }
