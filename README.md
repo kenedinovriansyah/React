@@ -1,2 +1,6 @@
-admin
-hendra@123
+#### How to running application
+
+```
+npm install
+npm run wese
+```
