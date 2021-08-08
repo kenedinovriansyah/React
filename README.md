@@ -12,3 +12,6 @@ List 7 inspirasi web design :
 5. https://www.siteinspire.com/
 6. https://www.awwwards.com/
 7. https://id.pinterest.com/
+
+
+d
